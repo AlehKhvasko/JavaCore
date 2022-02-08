@@ -1,19 +1,25 @@
-import exceptions.UniqueIdException;
+package repository;
+
+import exceptions.UserAlreadyExists;
+import model.User;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FileWorker {
-    final public String path = "C:\\Users\\alehk\\IdeaProjects\\JavaCore\\FileCRUD\\src\\main\\users.txt";
+public class FileUserRepositoryImpl {
+    private final String path;
+    public FileUserRepositoryImpl(){
+        path = "users.txt";
+    }
 
 
     public void writeUser(User user) {
-        List<User> users = getAll();
+        List<User> users = getAllUsers();
         try {
             for (User checkUser : users) {
                 if (checkUser.getId() == user.getId()) {
-                    throw new UniqueIdException("Provide unique id");
+                    throw new UserAlreadyExists();
                 }
             }
             users.add(user);
@@ -21,21 +27,20 @@ public class FileWorker {
             for (User singleUser : users) {
                 bw.write(singleUser.toString());
             }
+            bw.flush();
             bw.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (UniqueIdException e) {
+        } catch (IOException | UserAlreadyExists e) {
             e.printStackTrace();
         }
     }
 
-    public List<User> getAll() {
+    public List<User> getAllUsers(){
         List<User> users = new ArrayList<>();
-        String s;
+
+        BufferedReader br = null;
         try {
-            BufferedReader br = new BufferedReader(new FileReader(path));
+            String s;
+            br = new BufferedReader(new FileReader(path));
             while ((s = br.readLine()) != null) {
                 String[] data = s.split(";");
                 for (int i = 0; i < data.length; i += 3) {
@@ -45,22 +50,27 @@ public class FileWorker {
                             data[i + 2]));
                 }
             }
-            br.close();
-        } catch (FileNotFoundException e) {
-            System.out.println("Cannot open " + path);
         } catch (IOException e) {
-            System.out.println("Cannot read " + path);
+            e.printStackTrace();
+        }finally {
+            try {
+                if (br != null){
+                    br.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
         return users;
     }
 
     public User get(int id) {
-        List<User> users = getAll();
+        List<User> users = getAllUsers();
         return  checkIfExists(users, id);
     }
 
     public boolean updateUser(int id, String name, String lastName) {
-        List<User> users = getAll();
+        List<User> users = getAllUsers();
         if (checkIfExists(users,id) != null) {
             int usersIndex = users.indexOf(checkIfExists(users, id));
             users.get(usersIndex).setName(name);
@@ -75,7 +85,7 @@ public class FileWorker {
         }
     }
 
-    private User checkIfExists(List<User> users,int id){
+    private User checkIfExists(List<User> users, int id){
         for (User user:users) {
             if (user.getId() == id){
                 return user;
