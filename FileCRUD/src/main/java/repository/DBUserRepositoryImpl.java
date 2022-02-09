@@ -1,4 +1,4 @@
 package repository;
 
-public class DBUserRepositoryImpl {
+public class DBUserRepositoryImpl implements UserRepository {
 }

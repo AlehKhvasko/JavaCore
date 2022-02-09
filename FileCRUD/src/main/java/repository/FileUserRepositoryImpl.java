@@ -1,37 +1,33 @@
 package repository;
 
-import exceptions.UserAlreadyExists;
-import model.User;
 
+import exceptions.UserNotFound;
+import model.User;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FileUserRepositoryImpl {
-    private final String path;
-    public FileUserRepositoryImpl(){
-        path = "users.txt";
-    }
+public class FileUserRepositoryImpl implements UserRepository {
+    private final String path = "users.txt";
 
-
-    public void writeUser(User user) {
+    public void writeUser(User user) throws IOException {
         List<User> users = getAllUsers();
-        try {
-            for (User checkUser : users) {
-                if (checkUser.getId() == user.getId()) {
-                    throw new UserAlreadyExists();
-                }
-            }
             users.add(user);
             BufferedWriter bw = new BufferedWriter(new FileWriter(path));
             for (User singleUser : users) {
-                bw.write(singleUser.toString());
+                bw.write(singleUser.toString() + "\n");
             }
             bw.flush();
             bw.close();
-        } catch (IOException | UserAlreadyExists e) {
-            e.printStackTrace();
-        }
+    }
+
+    public void rewriteUsers(List<User> users) throws IOException {
+            BufferedWriter bw = new BufferedWriter(new FileWriter(path));
+            for (User singleUser : users) {
+                bw.write(singleUser.toString() + "\n");
+            }
+            bw.flush();
+            bw.close();
     }
 
     public List<User> getAllUsers(){
@@ -64,28 +60,9 @@ public class FileUserRepositoryImpl {
         return users;
     }
 
-    public User get(int id) {
-        List<User> users = getAllUsers();
-        return  checkIfExists(users, id);
-    }
 
-    public boolean updateUser(int id, String name, String lastName) {
+    public User getUser(int id) {
         List<User> users = getAllUsers();
-        if (checkIfExists(users,id) != null) {
-            int usersIndex = users.indexOf(checkIfExists(users, id));
-            users.get(usersIndex).setName(name);
-            users.get(usersIndex).setLastName(lastName);
-            eraseFile();
-            for (User user : users) {
-                writeUser(user);
-            }
-            return true;
-        }else {
-            return false;
-        }
-    }
-
-    private User checkIfExists(List<User> users, int id){
         for (User user:users) {
             if (user.getId() == id){
                 return user;
@@ -94,14 +71,34 @@ public class FileUserRepositoryImpl {
         return null;
     }
 
-
-    public void eraseFile() {
-        try {
-            BufferedWriter bw = new BufferedWriter(new FileWriter(path));
-            bw.close();
-        } catch (IOException e) {
-            e.printStackTrace();
+    private int findIndex(User user){
+        List<User> users = getAllUsers();
+        int index = 0;
+        for (User singleUser: users) {
+            if (singleUser.getId() == user.getId()){
+                return index;
+            }
+            index++;
         }
+        return -1;
+    }
+
+    private void setUser(User user){
+        List<User> users = getAllUsers();
+        int index = findIndex(user);
+        users.set(index, user);
+        try {
+            rewriteUsers(users);
+        } catch (IOException e) {
+            System.out.println("Can't overwrite users");
+        }
+    }
+
+    public void updateUser(int id, String name, String lastName){
+       User user = getUser(id);
+       user.setName(name);
+       user.setLastName(lastName);
+       setUser(user);
     }
 }
 
