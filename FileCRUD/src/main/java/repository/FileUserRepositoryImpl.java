@@ -1,7 +1,5 @@
 package repository;
 
-
-import exceptions.UserNotFound;
 import model.User;
 import java.io.*;
 import java.util.ArrayList;
@@ -21,13 +19,32 @@ public class FileUserRepositoryImpl implements UserRepository {
             bw.close();
     }
 
-    public void rewriteUsers(List<User> users) throws IOException {
-            BufferedWriter bw = new BufferedWriter(new FileWriter(path));
-            for (User singleUser : users) {
-                bw.write(singleUser.toString() + "\n");
+    public User getUser(int id) {
+        List<User> users = getAllUsers();
+        for (User user:users) {
+            if (user.getId() == id){
+                return user;
             }
-            bw.flush();
-            bw.close();
+        }
+        return null;
+    }
+
+    public void updateUser(int id, String name, String lastName){
+        User user = getUser(id);
+        user.setName(name);
+        user.setLastName(lastName);
+        setUser(user);
+    }
+
+    public void deleteUser(int id){
+        List<User> users = getAllUsers();
+        int index = findIndex(getUser(id));
+        users.remove(index);
+        try {
+            rewriteUsers(users);
+        } catch (IOException e) {
+            System.out.println("Can't overwrite users during deleting");
+        }
     }
 
     public List<User> getAllUsers(){
@@ -60,15 +77,13 @@ public class FileUserRepositoryImpl implements UserRepository {
         return users;
     }
 
-
-    public User getUser(int id) {
-        List<User> users = getAllUsers();
-        for (User user:users) {
-            if (user.getId() == id){
-                return user;
+    private void rewriteUsers(List<User> users) throws IOException {
+            BufferedWriter bw = new BufferedWriter(new FileWriter(path));
+            for (User singleUser : users) {
+                bw.write(singleUser.toString() + "\n");
             }
-        }
-        return null;
+            bw.flush();
+            bw.close();
     }
 
     private int findIndex(User user){
@@ -92,13 +107,6 @@ public class FileUserRepositoryImpl implements UserRepository {
         } catch (IOException e) {
             System.out.println("Can't overwrite users");
         }
-    }
-
-    public void updateUser(int id, String name, String lastName){
-       User user = getUser(id);
-       user.setName(name);
-       user.setLastName(lastName);
-       setUser(user);
     }
 }
 

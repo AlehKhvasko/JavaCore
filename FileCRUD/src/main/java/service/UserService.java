@@ -45,6 +45,12 @@ public class UserService {
         return false;
     }
 
+    public void deleteUser(int id){
+        if (checkUserExistById(id)){
+            userRepository.deleteUser(id);
+        }
+    }
+
     private boolean checkUserExist(User user) {
         List<User> users = userRepository.getAllUsers();
         for (User checkUser : users) {
