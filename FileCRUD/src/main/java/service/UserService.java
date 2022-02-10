@@ -22,7 +22,7 @@ public class UserService {
                 userRepository.writeUser(user);
             }
         }catch (UserAlreadyExists e){
-            System.out.println("User already exists. ");
+            System.err.println("User already exists. ");
         }
     }
 
@@ -54,6 +54,15 @@ public class UserService {
             return true;
         }
         return false;
+    }
+
+    public void showUsers(){
+        List<User> users = userRepository.getAllUsers();
+        if (users.size() != 0){
+            System.out.println(users);
+        }else {
+            System.err.println("No users. List is empty.");
+        }
     }
 
     private boolean checkUserExist(User user) {

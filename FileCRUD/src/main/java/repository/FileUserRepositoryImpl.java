@@ -8,12 +8,14 @@ import java.util.List;
 
 public class FileUserRepositoryImpl implements UserRepository {
     private final String path = "users.txt";
+    BufferedWriter bw = null;
+    BufferedReader br = null;
+    List<User> users = null;
 
     @Override
     public void writeUser(User user) {
-        BufferedWriter bw = null;
         try {
-            List<User> users = getAllUsers();
+            users = getAllUsers();
             users.add(user);
             bw = new BufferedWriter(new FileWriter(path));
             for (User singleUser : users) {
@@ -37,7 +39,7 @@ public class FileUserRepositoryImpl implements UserRepository {
 
     @Override
     public User getUser(int id) {
-        List<User> users = getAllUsers();
+        users = getAllUsers();
         for (User user:users) {
             if (user.getId() == id){
                 return user;
@@ -56,7 +58,7 @@ public class FileUserRepositoryImpl implements UserRepository {
 
     @Override
     public void deleteUser(int id){
-        List<User> users = getAllUsers();
+        users = getAllUsers();
         int index = findIndex(getUser(id));
         users.remove(index);
         try {
@@ -67,9 +69,7 @@ public class FileUserRepositoryImpl implements UserRepository {
     }
 
     public List<User> getAllUsers(){
-        List<User> users = new ArrayList<>();
-
-        BufferedReader br = null;
+        users = new ArrayList<>();
         try {
             String s;
             br = new BufferedReader(new FileReader(path));
@@ -97,7 +97,7 @@ public class FileUserRepositoryImpl implements UserRepository {
     }
 
     private void rewriteUsers(List<User> users) throws IOException {
-            BufferedWriter bw = new BufferedWriter(new FileWriter(path));
+            bw = new BufferedWriter(new FileWriter(path));
             for (User singleUser : users) {
                 bw.write(singleUser.toString() + "\n");
             }
@@ -106,7 +106,7 @@ public class FileUserRepositoryImpl implements UserRepository {
     }
 
     private int findIndex(User user){
-        List<User> users = getAllUsers();
+        users = getAllUsers();
         int index = 0;
         for (User singleUser: users) {
             if (singleUser.getId() == user.getId()){
@@ -118,7 +118,7 @@ public class FileUserRepositoryImpl implements UserRepository {
     }
 
     private void setUser(User user){
-        List<User> users = getAllUsers();
+        users = getAllUsers();
         int index = findIndex(user);
         users.set(index, user);
         try {
