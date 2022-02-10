@@ -45,10 +45,12 @@ public class UserService {
         return false;
     }
 
-    public void deleteUser(int id){
+    public boolean deleteUser(int id){
         if (checkUserExistById(id)){
             userRepository.deleteUser(id);
+            return true;
         }
+        return false;
     }
 
     private boolean checkUserExist(User user) {

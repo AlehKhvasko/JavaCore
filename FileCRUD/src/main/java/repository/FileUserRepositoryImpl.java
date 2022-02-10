@@ -1,6 +1,7 @@
 package repository;
 
 import model.User;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,17 +9,30 @@ import java.util.List;
 public class FileUserRepositoryImpl implements UserRepository {
     private final String path = "users.txt";
 
-    public void writeUser(User user) throws IOException {
-        List<User> users = getAllUsers();
+    @Override
+    public void writeUser(User user) {
+        BufferedWriter bw = null;
+        try {
+            List<User> users = getAllUsers();
             users.add(user);
-            BufferedWriter bw = new BufferedWriter(new FileWriter(path));
+            bw = new BufferedWriter(new FileWriter(path));
             for (User singleUser : users) {
                 bw.write(singleUser.toString() + "\n");
             }
-            bw.flush();
-            bw.close();
+        }catch (IOException e){
+            System.out.println(e);
+        }finally {
+            try {
+                bw.flush();
+                bw.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
     }
 
+    @Override
     public User getUser(int id) {
         List<User> users = getAllUsers();
         for (User user:users) {
@@ -29,6 +43,7 @@ public class FileUserRepositoryImpl implements UserRepository {
         return null;
     }
 
+    @Override
     public void updateUser(int id, String name, String lastName){
         User user = getUser(id);
         user.setName(name);

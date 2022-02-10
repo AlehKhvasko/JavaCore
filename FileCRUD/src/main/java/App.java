@@ -1,9 +1,5 @@
-import exceptions.UserAlreadyExists;
-import model.User;
 import repository.FileUserRepositoryImpl;
 import service.UserService;
-
-import java.io.IOException;
 
 public class App {
     public static void main(String[] args) {
@@ -13,6 +9,7 @@ public class App {
         System.out.println(userService.getUserById(2));
         System.out.println(userService.updateUser(3,"t2ttt","ww2ww"));
         System.out.println(userService.getUserById(2));
+        System.out.println(userService.deleteUser(2));
 
     }
 }
