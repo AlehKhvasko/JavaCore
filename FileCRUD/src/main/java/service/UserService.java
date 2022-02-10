@@ -31,11 +31,11 @@ public class UserService {
             if (checkUserExistById(id)){
                 return userRepository.getUser(id);
             }else {
-                throw new UserNotFound("User doesnt exist");
+                throw new UserNotFound("User doesn't exist");
             }
         }
         catch (UserNotFound e){
-            System.err.println(e);
+            System.out.println(" " + e);
         }
         return null;
     }
