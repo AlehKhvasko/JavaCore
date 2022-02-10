@@ -1,7 +1,7 @@
 package model;
 
 public class User {
-    private int id;
+    private final int id;
     private String name;
     private String lastName;
 

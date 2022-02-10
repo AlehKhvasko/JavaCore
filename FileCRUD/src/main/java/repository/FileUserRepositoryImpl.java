@@ -20,11 +20,14 @@ public class FileUserRepositoryImpl implements UserRepository {
                 bw.write(singleUser.toString() + "\n");
             }
         }catch (IOException e){
-            System.out.println(e);
+            e.printStackTrace();
+
         }finally {
             try {
-                bw.flush();
-                bw.close();
+                if (bw != null){
+                    bw.flush();
+                    bw.close();
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }

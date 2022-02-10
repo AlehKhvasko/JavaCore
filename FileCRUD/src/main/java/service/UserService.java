@@ -4,7 +4,6 @@ import exceptions.UserAlreadyExists;
 import exceptions.UserNotFound;
 import model.User;
 import repository.FileUserRepositoryImpl;
-import java.io.IOException;
 import java.util.List;
 
 
@@ -15,11 +14,15 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public void writeUser(User user) throws IOException, UserAlreadyExists {
-        if (checkUserExist(user)) {
-            throw new UserAlreadyExists();
-        } else {
-            userRepository.writeUser(user);
+    public void writeUser(User user){
+        try {
+            if (checkUserExist(user)) {
+                throw new UserAlreadyExists();
+            } else {
+                userRepository.writeUser(user);
+            }
+        }catch (UserAlreadyExists e){
+            System.out.println("User already exists. ");
         }
     }
 
