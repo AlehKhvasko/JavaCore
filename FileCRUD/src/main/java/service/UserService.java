@@ -35,7 +35,7 @@ public class UserService {
             }
         }
         catch (UserNotFound e){
-            System.out.println("User doesn't exists.");
+            System.out.println("User doesn't exist.");
             return null;
         }
     }
@@ -56,13 +56,13 @@ public class UserService {
         return false;
     }
 
-    public void showUsers(){
+    public List<User> showUsers(){
         List<User> users = userRepository.getAllUsers();
         if (users.size() != 0){
-            System.out.println(users);
-        }else {
-            System.err.println("No users. List is empty.");
+             return users;
         }
+        System.err.println("No users. List is empty.");
+        return null;
     }
 
     private boolean checkUserExist(User user) {
