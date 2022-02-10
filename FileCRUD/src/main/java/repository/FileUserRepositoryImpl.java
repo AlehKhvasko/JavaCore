@@ -7,41 +7,39 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FileUserRepositoryImpl implements UserRepository {
-    private final String path = "users.txt";
-    BufferedWriter bw = null;
-    BufferedReader br = null;
-    List<User> users = null;
+    private BufferedWriter bw;
+    private BufferedReader br;
 
-    @Override
-    public void writeUser(User user) {
-        try {
-            users = getAllUsers();
-            users.add(user);
-            bw = new BufferedWriter(new FileWriter(path));
-            for (User singleUser : users) {
-                bw.write(singleUser.toString() + "\n");
-            }
-        }catch (IOException e){
-            e.printStackTrace();
-
-        }finally {
+    public FileUserRepositoryImpl(String path) {
+        File file = new File(path);
+        if (!file.exists()) {
             try {
-                if (bw != null){
-                    bw.flush();
-                    bw.close();
-                }
+                file.createNewFile();
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
+        }
+        try {
+            br = new BufferedReader(new FileReader(path));
+            bw = new BufferedWriter(new FileWriter(path));
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
     @Override
+    public void writeUser(User user) {
+        List<User> users = getAllUsers();
+        //TODO figure out "user not found"
+        users.add(user);
+        rewriteUsers(users);
+    }
+
+    @Override
     public User getUser(int id) {
-        users = getAllUsers();
-        for (User user:users) {
-            if (user.getId() == id){
+        List<User> users = getAllUsers();
+        for (User user : users) {
+            if (user.getId() == id) {
                 return user;
             }
         }
@@ -49,30 +47,38 @@ public class FileUserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public void updateUser(int id, String name, String lastName){
-        User user = getUser(id);
-        user.setName(name);
-        user.setLastName(lastName);
-        setUser(user);
-    }
+    public void updateUser(int id, User user) {
+        User updateUser = getUser(id);
+        updateUser.setName(user.getName());
+        updateUser.setLastName(user.getLastName());
+        List<User> users = getAllUsers();
 
-    @Override
-    public void deleteUser(int id){
-        users = getAllUsers();
-        int index = findIndex(getUser(id));
-        users.remove(index);
+        int index = users.indexOf(user);
+        users.set(index, user);
+
         try {
             rewriteUsers(users);
+            bw.flush();
         } catch (IOException e) {
-            System.out.println("Can't overwrite users during deleting");
+            System.err.println("Can't update users");
         }
     }
 
-    public List<User> getAllUsers(){
-        users = new ArrayList<>();
+    @Override
+    public void deleteUser(int id) {
+        List<User> users = getAllUsers();
+        User user = new User();
+        user.setId(id);
+        users.remove(user);
+        rewriteUsers(users);
+    }
+
+    @Override
+    public List<User> getAllUsers() {
+        List<User> users = new ArrayList<>();
         try {
             String s;
-            br = new BufferedReader(new FileReader(path));
+
             while ((s = br.readLine()) != null) {
                 String[] data = s.split(";");
                 for (int i = 0; i < data.length; i += 3) {
@@ -84,48 +90,21 @@ public class FileUserRepositoryImpl implements UserRepository {
             }
         } catch (IOException e) {
             e.printStackTrace();
-        }finally {
-            try {
-                if (br != null){
-                    br.close();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
         }
         return users;
     }
 
-    private void rewriteUsers(List<User> users) throws IOException {
-            bw = new BufferedWriter(new FileWriter(path));
+    private void rewriteUsers(List<User> users) {
+        try {
             for (User singleUser : users) {
                 bw.write(singleUser.toString() + "\n");
             }
             bw.flush();
-            bw.close();
-    }
-
-    private int findIndex(User user){
-        users = getAllUsers();
-        int index = 0;
-        for (User singleUser: users) {
-            if (singleUser.getId() == user.getId()){
-                return index;
-            }
-            index++;
-        }
-        return -1;
-    }
-
-    private void setUser(User user){
-        users = getAllUsers();
-        int index = findIndex(user);
-        users.set(index, user);
-        try {
-            rewriteUsers(users);
         } catch (IOException e) {
-            System.err.println("Can't update users");
+            e.printStackTrace();
         }
+
     }
+
 }
 

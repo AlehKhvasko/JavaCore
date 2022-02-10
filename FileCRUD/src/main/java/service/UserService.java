@@ -4,11 +4,13 @@ import exceptions.UserAlreadyExists;
 import exceptions.UserNotFound;
 import model.User;
 import repository.FileUserRepositoryImpl;
+import repository.UserRepository;
+
 import java.util.List;
 
 
 public class UserService {
-    private final FileUserRepositoryImpl userRepository;
+    private UserRepository userRepository;
 
     public UserService(FileUserRepositoryImpl userRepository) {
         this.userRepository = userRepository;
@@ -40,9 +42,9 @@ public class UserService {
         return null;
     }
 
-    public boolean updateUser(int id, String name, String lastName){
+    public boolean updateUser(int id, User user){
         if (checkUserExistById(id)){
-            userRepository.updateUser(id,name,lastName);
+            userRepository.updateUser(id, user);
             return true;
         }
         return false;
