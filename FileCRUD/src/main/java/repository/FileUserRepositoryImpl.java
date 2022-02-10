@@ -124,7 +124,7 @@ public class FileUserRepositoryImpl implements UserRepository {
         try {
             rewriteUsers(users);
         } catch (IOException e) {
-            System.out.println("Can't overwrite users");
+            System.err.println("Can't update users");
         }
     }
 }
