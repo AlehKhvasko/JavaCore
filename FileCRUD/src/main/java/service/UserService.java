@@ -31,13 +31,13 @@ public class UserService {
             if (checkUserExistById(id)){
                 return userRepository.getUser(id);
             }else {
-                throw new UserNotFound();
+                throw new UserNotFound("User doesnt exist");
             }
         }
         catch (UserNotFound e){
-            System.out.println("User doesn't exist.");
-            return null;
+            System.err.println(e);
         }
+        return null;
     }
 
     public boolean updateUser(int id, String name, String lastName){
