@@ -5,6 +5,7 @@ import model.User;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class FileUserRepositoryImpl implements UserRepository {
     private BufferedWriter bw;
@@ -30,38 +31,59 @@ public class FileUserRepositoryImpl implements UserRepository {
     @Override
     public void writeUser(User user) {
         List<User> users = getAllUsers();
-        //TODO figure out "user not found"
         users.add(user);
         rewriteUsers(users);
     }
 
     @Override
-    public User getUser(int id) {
+    public Optional<User> getUser(int id) {
         List<User> users = getAllUsers();
         for (User user : users) {
             if (user.getId() == id) {
-                return user;
+                return Optional.of(user);
             }
         }
-        return null;
+        return Optional.empty();
     }
 
     @Override
     public void updateUser(int id, User user) {
-        User updateUser = getUser(id);
-        updateUser.setName(user.getName());
-        updateUser.setLastName(user.getLastName());
-        List<User> users = getAllUsers();
 
-        int index = users.indexOf(user);
-        users.set(index, user);
+        getUser(id).ifPresent(user1 -> {
+            user1.setName(user.getName());
+            user1.setLastName(user.getLastName());
 
-        try {
-            rewriteUsers(users);
-            bw.flush();
-        } catch (IOException e) {
-            System.err.println("Can't update users");
-        }
+            List<User> users = getAllUsers();
+
+            int index = users.indexOf(user1);
+            users.set(index, user1);
+            try {
+                rewriteUsers(users);
+                bw.flush();
+            } catch (IOException e) {
+                System.err.println("Can't update users");
+            }
+        });
+
+/*        Optional<User> updateUserOptional = getUser(id);
+        if (getUser(id).isPresent()) {
+            User unwrappedUser = getUser(id).get();
+
+            unwrappedUser.setName(user.getName());
+            unwrappedUser.setLastName(user.getLastName());
+
+            List<User> users = getAllUsers();
+
+            int index = users.indexOf(unwrappedUser);
+            users.set(index, unwrappedUser);
+            try {
+                rewriteUsers(users);
+                bw.flush();
+            } catch (IOException e) {
+                System.err.println("Can't update users");
+            }
+        }*/
+
     }
 
     @Override

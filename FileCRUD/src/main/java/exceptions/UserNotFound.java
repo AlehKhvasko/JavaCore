@@ -1,4 +1,6 @@
 package exceptions;
 
-public class UserNotFound extends Exception{
+import java.util.function.Supplier;
+
+public class UserNotFound extends Exception  {
 }

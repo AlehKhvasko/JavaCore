@@ -7,84 +7,64 @@ import repository.FileUserRepositoryImpl;
 import repository.UserRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 
 public class UserService {
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
     public UserService(FileUserRepositoryImpl userRepository) {
         this.userRepository = userRepository;
     }
 
-    public void writeUser(User user){
-        try {
-            if (checkUserExist(user)) {
-                throw new UserAlreadyExists();
-            } else {
-                userRepository.writeUser(user);
-            }
-        }catch (UserAlreadyExists e){
-            System.err.println("User already exists. ");
+    public void writeUser(User user) throws UserAlreadyExists {
+        Optional<User> newUser = userRepository.getUser(user.getId());
+        if (newUser.isPresent()) {
+            throw new UserAlreadyExists();
         }
+        userRepository.writeUser(user);
     }
 
-    public User getUserById(int id){
-        try{
-            if (checkUserExistById(id)){
-                return userRepository.getUser(id);
-            }else {
-                throw new UserNotFound();
-            }
+    /***
+     * should return user if exists by id or return null instead
+     *
+     * @param id user's id
+     * @return object of user
+     */
+    public User getUserById(int id) throws UserNotFound {
+        return userRepository
+                .getUser(id)
+                .orElseThrow(UserNotFound::new);
+
+/*        if (user.isEmpty()) {
+            throw new UserNotFound();
         }
-        catch (UserNotFound e){
-            System.out.println("User not found.");
-        }
-        return null;
+        return user.get();*/
     }
 
-    public boolean updateUser(int id, User user){
-        if (checkUserExistById(id)){
+    public boolean updateUser(int id, User user) {
+        if (userRepository.getUser(id).isPresent()) {
             userRepository.updateUser(id, user);
             return true;
         }
         return false;
     }
 
-    public boolean deleteUser(int id){
-        if (checkUserExistById(id)){
+    public boolean deleteUser(int id) {
+        if (userRepository.getUser(id).isPresent()) {
             userRepository.deleteUser(id);
             return true;
         }
         return false;
     }
 
-    public List<User> showUsers(){
+    public List<User> getAllUsers() {
         List<User> users = userRepository.getAllUsers();
-        if (users.size() != 0){
-             return users;
+        if (users.size() != 0) {
+            return users;
         }
         System.err.println("No users. List is empty.");
         return null;
-    }
-
-    private boolean checkUserExist(User user) {
-        List<User> users = userRepository.getAllUsers();
-        for (User checkUser : users) {
-            if (checkUser.getId() == user.getId()) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private boolean checkUserExistById(int id) {
-        List<User> users = userRepository.getAllUsers();
-        for (User checkUser : users) {
-            if (checkUser.getId() == id) {
-                return true;
-            }
-        }
-        return false;
     }
 
 
