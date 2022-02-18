@@ -35,11 +35,6 @@ public class UserService {
         return userRepository
                 .getUser(id)
                 .orElseThrow(UserNotFound::new);
-
-/*        if (user.isEmpty()) {
-            throw new UserNotFound();
-        }
-        return user.get();*/
     }
 
     public boolean updateUser(int id, User user) {
