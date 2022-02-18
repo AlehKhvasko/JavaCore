@@ -4,10 +4,9 @@ import exceptions.UserAlreadyExists;
 import model.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.function.Executable;
 import org.mockito.Mockito;
 import repository.FileUserRepositoryImpl;
-import service.UserService;
-
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -46,6 +45,23 @@ import static org.junit.jupiter.api.Assertions.*;
                 });
 
                 assertNotNull(exception);
+            }
+
+            @Test
+            void writeUser_shouldThrowTest() {
+                //given
+                User user = new User(2, "1", "1");
+
+                //when
+                Mockito.when(fileUserRepository.getUser(2))
+                        .thenThrow(UnknownError.class);
+
+                Executable executable = ()->{
+                    fileUserRepository.getUser(2);
+                };
+
+                //then
+                assertThrows(UnknownError.class, executable);
             }
         }
 
