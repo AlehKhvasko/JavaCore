@@ -4,8 +4,6 @@ import model.User;
 import repository.FileUserRepositoryImpl;
 import service.UserService;
 
-import java.io.IOException;
-
 public class App {
     public static void main(String[] args) throws UserNotFound, UserAlreadyExists {
         UserService userService = new UserService(new FileUserRepositoryImpl("users.txt"));
@@ -13,7 +11,7 @@ public class App {
         userService.writeUser(new User(2,"Tom","Brown"));
         userService.writeUser(new User(3,"Nick","Jefferson"));
         userService.writeUser(new User(4,"Mack","Ronald"));
-        User user = new User("Elvis", "presley");
+        User user = new User("Elvis", "Presley");
 
         System.out.println(userService.getAllUsers());
         System.out.println(userService.getUserById(2));

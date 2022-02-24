@@ -25,12 +25,6 @@ public class UserService {
         userRepository.writeUser(user);
     }
 
-    /***
-     * should return user if exists by id or return null instead
-     *
-     * @param id user's id
-     * @return object of user
-     */
     public User getUserById(int id) throws UserNotFound {
         return userRepository
                 .getUser(id)
@@ -61,6 +55,4 @@ public class UserService {
         System.err.println("No users. List is empty.");
         return null;
     }
-
-
 }

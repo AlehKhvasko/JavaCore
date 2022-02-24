@@ -11,6 +11,11 @@ public class FileUserRepositoryImpl implements UserRepository {
     private BufferedWriter bw;
     private BufferedReader br;
 
+    public FileUserRepositoryImpl(BufferedReader br, BufferedWriter bw) {
+        this.bw = bw;
+        this.br = br;
+    }
+
     public FileUserRepositoryImpl(String path) {
         File file = new File(path);
         if (!file.exists()) {
@@ -48,7 +53,6 @@ public class FileUserRepositoryImpl implements UserRepository {
 
     @Override
     public void updateUser(int id, User user) {
-
         getUser(id).ifPresent(user1 -> {
             user1.setName(user.getName());
             user1.setLastName(user.getLastName());
@@ -64,26 +68,6 @@ public class FileUserRepositoryImpl implements UserRepository {
                 System.err.println("Can't update users");
             }
         });
-
-/*        Optional<User> updateUserOptional = getUser(id);
-        if (getUser(id).isPresent()) {
-            User unwrappedUser = getUser(id).get();
-
-            unwrappedUser.setName(user.getName());
-            unwrappedUser.setLastName(user.getLastName());
-
-            List<User> users = getAllUsers();
-
-            int index = users.indexOf(unwrappedUser);
-            users.set(index, unwrappedUser);
-            try {
-                rewriteUsers(users);
-                bw.flush();
-            } catch (IOException e) {
-                System.err.println("Can't update users");
-            }
-        }*/
-
     }
 
     @Override
@@ -100,7 +84,6 @@ public class FileUserRepositoryImpl implements UserRepository {
         List<User> users = new ArrayList<>();
         try {
             String s;
-
             while ((s = br.readLine()) != null) {
                 String[] data = s.split(";");
                 for (int i = 0; i < data.length; i += 3) {
@@ -127,6 +110,5 @@ public class FileUserRepositoryImpl implements UserRepository {
         }
 
     }
-
 }
 
