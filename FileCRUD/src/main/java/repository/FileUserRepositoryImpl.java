@@ -1,7 +1,6 @@
 package repository;
 
 import model.User;
-
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,12 +10,26 @@ public class FileUserRepositoryImpl implements UserRepository {
     private BufferedWriter bw;
     private BufferedReader br;
 
-    public FileUserRepositoryImpl(BufferedReader br, BufferedWriter bw) {
+
+    public FileUserRepositoryImpl(String path, BufferedReader br, BufferedWriter bw) {
+        createFile(path);
         this.bw = bw;
         this.br = br;
     }
 
-    public FileUserRepositoryImpl(String path) {
+    public void createFile(String path){
+        File file = new File(path);
+        if (!file.exists()) {
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+
+/*    public FileUserRepositoryImpl(String path) {
         File file = new File(path);
         if (!file.exists()) {
             try {
@@ -31,7 +44,7 @@ public class FileUserRepositoryImpl implements UserRepository {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
+    }*/
 
     @Override
     public void writeUser(User user) {

@@ -6,6 +6,8 @@ import model.User;
 import repository.FileUserRepositoryImpl;
 import repository.UserRepository;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,6 +18,7 @@ public class UserService {
     public UserService(FileUserRepositoryImpl userRepository) {
         this.userRepository = userRepository;
     }
+
 
     public void writeUser(User user) throws UserAlreadyExists {
         Optional<User> newUser = userRepository.getUser(user.getId());

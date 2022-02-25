@@ -4,9 +4,16 @@ import model.User;
 import repository.FileUserRepositoryImpl;
 import service.UserService;
 
+import java.io.*;
+
 public class App {
-    public static void main(String[] args) throws UserNotFound, UserAlreadyExists {
-        UserService userService = new UserService(new FileUserRepositoryImpl("users.txt"));
+    public static String path = "users.txt";
+    public static void main(String[] args) throws UserNotFound, UserAlreadyExists, IOException {
+        UserService userService = new UserService(new FileUserRepositoryImpl(path,
+                new BufferedReader(new FileReader(path)),
+                new BufferedWriter(new FileWriter(path))
+        ));
+
         userService.writeUser(new User(1,"Keith","Archibald"));
         userService.writeUser(new User(2,"Tom","Brown"));
         userService.writeUser(new User(3,"Nick","Jefferson"));
@@ -19,7 +26,6 @@ public class App {
         System.out.println(userService.getUserById(4));
         System.out.println(userService.deleteUser(3));
         System.out.println(userService.getUserById(3));
-
     }
 
 }
