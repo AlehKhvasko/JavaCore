@@ -10,24 +10,10 @@ public class FileUserRepositoryImpl implements UserRepository {
     private BufferedWriter bw;
     private BufferedReader br;
 
-
-    public FileUserRepositoryImpl(String path, BufferedReader br, BufferedWriter bw) {
-        createFile(path);
+    public FileUserRepositoryImpl(BufferedReader br, BufferedWriter bw) {
         this.bw = bw;
         this.br = br;
     }
-
-    public void createFile(String path){
-        File file = new File(path);
-        if (!file.exists()) {
-            try {
-                file.createNewFile();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
 
 /*    public FileUserRepositoryImpl(String path) {
         File file = new File(path);
@@ -98,13 +84,13 @@ public class FileUserRepositoryImpl implements UserRepository {
         try {
             String s;
             while ((s = br.readLine()) != null) {
+                System.out.print(s);
                 String[] data = s.split(";");
-                for (int i = 0; i < data.length; i += 3) {
-                    users.add(new User(
-                            Integer.parseInt(data[i]),
-                            data[i + 1],
-                            data[i + 2]));
-                }
+                System.out.println(data.length);
+                users.add(new User(
+                            Integer.parseInt(data[0]),
+                            data[1],
+                            data[2]));
             }
         } catch (IOException e) {
             e.printStackTrace();

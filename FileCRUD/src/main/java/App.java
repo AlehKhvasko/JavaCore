@@ -7,25 +7,34 @@ import service.UserService;
 import java.io.*;
 
 public class App {
-    public static String path = "users.txt";
     public static void main(String[] args) throws UserNotFound, UserAlreadyExists, IOException {
-        UserService userService = new UserService(new FileUserRepositoryImpl(path,
-                new BufferedReader(new FileReader(path)),
-                new BufferedWriter(new FileWriter(path))
-        ));
+        String path = "users.txt";
+        File file = new File(path);
+        if (!file.exists()) {
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        UserService userService = new UserService(
+                new FileUserRepositoryImpl(new BufferedReader(new FileReader(file)),
+                                            new BufferedWriter(new FileWriter(file))));
 
         userService.writeUser(new User(1,"Keith","Archibald"));
+        System.out.println(userService.getAllUsers());
         userService.writeUser(new User(2,"Tom","Brown"));
+        System.out.println(userService.getAllUsers());
         userService.writeUser(new User(3,"Nick","Jefferson"));
         userService.writeUser(new User(4,"Mack","Ronald"));
-        User user = new User("Elvis", "Presley");
+        //User user = new User("Elvis", "Presley");
 
         System.out.println(userService.getAllUsers());
-        System.out.println(userService.getUserById(2));
-        System.out.println(userService.updateUser(3,user));
-        System.out.println(userService.getUserById(4));
-        System.out.println(userService.deleteUser(3));
-        System.out.println(userService.getUserById(3));
+        //System.out.println(userService.getUserById(4));
+        //System.out.println(userService.updateUser(3,user));
+        //System.out.println(userService.getUserById(4));
+        //System.out.println(userService.deleteUser(3));
+        //System.out.println(userService.getUserById(3));
     }
 
 }
