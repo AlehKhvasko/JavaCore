@@ -14,5 +14,6 @@
     <modules>
         <module>FileCRUD</module>
         <module>weatherApi.ApiWeather</module>
+        <module>WeatherApi</module>
     </modules>
 </project>

@@ -7,10 +7,11 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="FileCRUD" />
-        <module name="ApiWeather" />
+        <module name="WeatherApi" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="ApiWeather" target="11" />
       <module name="FilePracticeByJohn" target="11" />
     </bytecodeTargetLevel>
   </component>
