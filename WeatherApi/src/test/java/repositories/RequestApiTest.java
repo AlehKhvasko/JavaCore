@@ -1,5 +1,6 @@
 package repositories;
 
+import client.utils.RequestApi;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -12,12 +13,13 @@ class RequestApiTest {
     @Test
     void RequestApi_should_be_with_three_properties() throws IOException {
         //given
-        final RequestApi requestApi  = new RequestApi("locations", "topcities","50");
+        RequestApi requestApi  =
+                new RequestApi("locations", "topcities","50");
         //when
         //then
         assertAll("Should contain proper http request",
-                ()->{assertEquals("http",requestApi.protocolVersion);},
-                ()->{assertEquals("dataservice.accuweather.com",requestApi.host);},
+                ()->assertEquals("http",requestApi.protocolVersion),
+                ()->assertEquals("dataservice.accuweather.com",requestApi.host),
                 ()->{assertEquals("locations",requestApi.firstParameter);},
                 ()->{assertEquals("topcities",requestApi.secondParameter);},
                 ()->{assertEquals("50",requestApi.thirdParameter);},

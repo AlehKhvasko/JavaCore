@@ -5,19 +5,20 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class City {
+    @JsonProperty("Country")
+    public Country country;
     @JsonProperty("LocalizedName")
     private String headline;
+    @JsonProperty("Key")
+    private Integer cityKey;
+
+    public City(
+    ) {
+    }
 
     public Integer getCityKey() {
         return cityKey;
     }
-
-
-    @JsonProperty("Key")
-    private Integer cityKey;
-
-    @JsonProperty("Country")
-    public  Country country;
 
     public String getHeadline() {
         return headline;
@@ -25,10 +26,6 @@ public class City {
 
     public void setHeadline(String headline) {
         this.headline = headline;
-    }
-
-    public City(
-    ) {
     }
 
     @Override
