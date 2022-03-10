@@ -1,4 +1,4 @@
-package repositories;
+package client.utils;
 
 import com.squareup.okhttp.HttpUrl;
 import com.squareup.okhttp.OkHttpClient;
@@ -15,14 +15,9 @@ public class RequestApi {
     public final String firstParameter;
     public final String secondParameter;
     public final String thirdParameter;
-
-    public String fourthParameter;
     public final Response response;
     private final String api = "MTmCyiM2DsHIkr5YYqWU5028EEa9r4hI";
-
-    public String getApi() {
-        return api;
-    }
+    public String fourthParameter;
 
     public RequestApi(String firstParameter, String secondParameter,
                       String thirdParameter) throws IOException {
@@ -72,6 +67,10 @@ public class RequestApi {
                 .build();
 
         response = client.newCall(request).execute();
+    }
+
+    public String getApi() {
+        return api;
     }
 
     public String getResponse() throws IOException {

@@ -1,36 +1,34 @@
+import client.AccuWeatherClient;
+import client.utils.RequestApi;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import exceptions.NoCityFound;
 import model.city.City;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import repositories.RequestApi;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class ApiWeatherTest {
-    ObjectMapper objectMapper;
+class ApiWeatherTestIT {
+    AccuWeatherClient accuWeatherClient;
+
     @BeforeEach
-    void init(){
-        objectMapper = new ObjectMapper();
+    void init() {
+        accuWeatherClient = new AccuWeatherClient(new ObjectMapper());
     }
 
     @Test
     void getLocalKey_should_return_string_of_city() throws IOException, NoCityFound {
         //given
-        String expectedKey = "28143";
-        RequestApi requestCities = new RequestApi("locations", "topcities","50");
-        String response = requestCities.getResponse();
-        ArrayList<City> cityList = objectMapper.readValue(response, new TypeReference<>() {});
-
+        List<City> cityList = accuWeatherClient.get50TopCitiesList();
         //when
-        String result = ApiWeather.getLocalKey(0, cityList);
-
+        String result = App.getLocalKey(0, cityList);
         //then
-        assertEquals(expectedKey, result);
+        assertEquals("28143", result);
     }
 
 }
