@@ -12,12 +12,12 @@ public class RequestApi {
     public final String version = "v1";
     public final String host = "dataservice.accuweather.com";
 
-    public String firstParameter;
-    public String secondParameter;
-    public String thirdParameter;
+    public final String firstParameter;
+    public final String secondParameter;
+    public final String thirdParameter;
 
     public String fourthParameter;
-    public Response response;
+    public final Response response;
     private final String api = "MTmCyiM2DsHIkr5YYqWU5028EEa9r4hI";
 
     public String getApi() {
