@@ -8,6 +8,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="FileCRUD" />
         <module name="WeatherApi" />
+        <module name="JDBC" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
