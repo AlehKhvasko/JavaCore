@@ -112,5 +112,28 @@ public class App {
         }
 
     }
+
+    public static void deleteRow(){
+        Connection con = DBConnection.connect();
+        PreparedStatement ps = null;
+
+        String sql = "delete from students where email = ? ";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1,  "donkey@gmail.com");
+            ps.execute();
+            System.out.println("Row has been deleted.");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+            try {
+                con.close();
+                ps.close();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+
+        }
+    }
 }
 
