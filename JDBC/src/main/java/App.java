@@ -12,8 +12,9 @@ public class App {
         insert("Mike", "Donkey",
                 "donkey@gmail.com", "password");*/
 
-        readAllDAta();
-        readSpecificRow ();
+       // readAllDAta();
+       // readSpecificRow ();
+       // updateFirstName();
     }
 
     public static void insert(String firstName, String secondName, String email, String password) {
@@ -94,6 +95,22 @@ public class App {
                 System.out.println(e);
             }
         }
+    }
+
+    public static void updateFirstName() {
+        Connection con = DBConnection.connect();
+        PreparedStatement ps = null;
+        try {
+            String sql = "UPDATE students set firstName = ? WHERE email = ? ";
+            ps = con.prepareStatement(sql);
+            ps.setString(1, "DamnItCarl");
+            ps.setString(2, "donkey@gmail.com");
+            ps.execute();
+            System.out.println("Database has been updated");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
     }
 }
 
