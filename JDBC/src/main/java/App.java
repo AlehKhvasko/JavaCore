@@ -7,7 +7,7 @@ import java.sql.SQLException;
 
 public class App {
     public static void main(String[] args) {
-/*        insert("Douglas", "McGragery",
+/*        insert("Douglas", "McGregory",
                 "douglasMcgragar@gmail.com", "dogsNickName");
         insert("Mike", "Donkey",
                 "donkey@gmail.com", "password");*/
@@ -83,8 +83,8 @@ public class App {
             String firstName = rs.getString(1);
             System.out.println(firstName);
 
-            } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            } catch (SQLException e) {
+            e.printStackTrace();
            }finally {
             try {
                 rs.close();
