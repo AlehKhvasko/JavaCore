@@ -9,6 +9,7 @@
         <module name="FileCRUD" />
         <module name="WeatherApi" />
         <module name="JDBC" />
+        <module name="JdbcWithSQLite" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
