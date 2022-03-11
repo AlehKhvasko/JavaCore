@@ -9,7 +9,7 @@ public class DBConnection {
         Connection con = null;
         try {
             Class.forName("org.sqlite.JDBC");
-            con = DriverManager.getConnection("jdbc:sqlite:StudentDB.db");
+            con = DriverManager.getConnection("jdbc:sqlite:C:\\Users\\alehk\\IdeaProjects\\JavaCore\\JDBC\\StudentDB.db");
             System.out.println("Connected");
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
