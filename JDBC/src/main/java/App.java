@@ -12,9 +12,12 @@ public class App {
         insert("Mike", "Donkey",
                 "donkey@gmail.com", "password");*/
 
-       // readAllDAta();
-       // readSpecificRow ();
-       // updateFirstName();
+        // readAllDAta();
+        // readSpecificRow ();
+        // updateFirstName();
+        //deleteRow();
+        getNumberOfUsers();
+
     }
 
     public static void insert(String firstName, String secondName, String email, String password) {
@@ -43,7 +46,7 @@ public class App {
             String sql = "SELECT * FROM students";
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
-            while (rs.next()){
+            while (rs.next()) {
                 String firstName = rs.getString("firstName");
                 String secondName = rs.getString("secondName");
                 String email = rs.getString("email");
@@ -56,7 +59,7 @@ public class App {
                 System.out.println("password " + password);
             }
         } catch (SQLException e) {
-            System.out.println(e.toString());
+            System.out.println(e);
         } finally {
             try {
                 rs.close();
@@ -68,25 +71,25 @@ public class App {
         }
     }
 
-    public static void readSpecificRow () {
+    public static void readSpecificRow() {
         Connection con = DBConnection.connect();
         PreparedStatement ps = null;
         ResultSet rs = null;
 
         try {
-                String sql = "Select firstName from students where email = ? ";
-                ps = con.prepareStatement(sql);
-                ps.setString(1, "douglasMcgragar@gmail.com");
-                rs = ps.executeQuery();
+            String sql = "Select firstName from students where email = ? ";
+            ps = con.prepareStatement(sql);
+            ps.setString(1, "douglasMcgragar@gmail.com");
+            rs = ps.executeQuery();
 
-                //reading one row
+            //reading one row
 
             String firstName = rs.getString(1);
             System.out.println(firstName);
 
-            } catch (SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
-           }finally {
+        } finally {
             try {
                 rs.close();
                 ps.close();
@@ -113,19 +116,19 @@ public class App {
 
     }
 
-    public static void deleteRow(){
+    public static void deleteRow() {
         Connection con = DBConnection.connect();
         PreparedStatement ps = null;
 
         String sql = "delete from students where email = ? ";
         try {
             ps = con.prepareStatement(sql);
-            ps.setString(1,  "donkey@gmail.com");
+            ps.setString(1, "donkey@gmail.com");
             ps.execute();
             System.out.println("Row has been deleted.");
         } catch (SQLException e) {
             e.printStackTrace();
-        }finally {
+        } finally {
             try {
                 con.close();
                 ps.close();
@@ -133,6 +136,32 @@ public class App {
                 throwables.printStackTrace();
             }
 
+        }
+    }
+
+    public static void getNumberOfUsers() {
+        Connection con = DBConnection.connect();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
+        try {
+            String sql = "select count(firstName) from students ";
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+
+            //count
+            int size = rs.getInt(1);
+            System.out.println("You have " + size + " users.");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                con.close();
+                ps.close();
+                rs.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 }
