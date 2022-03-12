@@ -7,16 +7,16 @@ import java.sql.SQLException;
 
 public class App {
     public static void main(String[] args) {
-/*        insert("Douglas", "McGregory",
+    /*insert("Douglas", "McGregory",
                 "douglasMcgragar@gmail.com", "dogsNickName");
         insert("Mike", "Donkey",
                 "donkey@gmail.com", "password");*/
 
-        // readAllDAta();
+        //readAllDAta();
         // readSpecificRow ();
         // updateFirstName();
         //deleteRow();
-        getNumberOfUsers();
+        //getNumberOfUsers();
 
     }
 
@@ -143,7 +143,6 @@ public class App {
         Connection con = DBConnection.connect();
         PreparedStatement ps = null;
         ResultSet rs = null;
-
         try {
             String sql = "select count(firstName) from students ";
             ps = con.prepareStatement(sql);

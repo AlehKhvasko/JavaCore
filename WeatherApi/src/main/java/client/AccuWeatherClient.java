@@ -28,7 +28,7 @@ public class AccuWeatherClient {
 
     public Root getCurrentConditions(String key) throws IOException {
         RequestApi requestWeather =
-                new RequestApi("forecasts", "daily", "5day", key);
+                new RequestApi("forecasts", "daily", "1day", key);
         String weatherResponse = requestWeather.getResponse();
         return objectMapper.readValue(weatherResponse, Root.class);
     }
