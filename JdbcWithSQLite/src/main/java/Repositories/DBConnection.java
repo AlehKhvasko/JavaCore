@@ -9,17 +9,11 @@ public class DBConnection {
 
         Connection connection = null;
         try{
-            String url = "jdbc:sqlite:C:\\Users\\alehk\\OneDrive\\Desktop\\DummyDB\\WeatherDB";
+            String url = "jdbc:sqlite:C:\\Users\\alehk\\OneDrive\\Desktop\\DummyDB\\WeatherDB.db";
             connection = DriverManager.getConnection(url);
             System.out.println("Connection has been established.");
         }catch (SQLException e){
             System.out.println(e);
-        }finally {
-            try {
-                connection.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
         }
         /**
          *
