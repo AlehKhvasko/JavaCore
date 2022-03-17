@@ -10,6 +10,7 @@
         <module name="WeatherApi" />
         <module name="JDBC" />
         <module name="JdbcWithSQLite" />
+        <module name="JDBCwithPostgreSQL" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
