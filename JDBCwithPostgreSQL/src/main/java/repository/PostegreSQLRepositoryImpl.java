@@ -1,9 +1,6 @@
 package repository;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 public class PostegreSQLRepositoryImpl implements DBConnection {
 
@@ -38,9 +35,9 @@ public class PostegreSQLRepositoryImpl implements DBConnection {
     }
 
     @Override
-    public void insert(Connection con, String tableName, String city, String country, int cityid) {
+    public void insert(Connection con, String tableName, String city, String country, String cityid) {
         Statement statement;
-            String query = String.format("insert into %s(city, country, cityid) values('%s','%s', %d);",
+            String query = String.format("insert into %s(city, country, cityid) values('%s','%s', %s);",
                     tableName, city, country, cityid);
 
         try {
@@ -54,8 +51,22 @@ public class PostegreSQLRepositoryImpl implements DBConnection {
     }
 
     @Override
-    public void read() {
-
+    public void read(Connection con, String tableName) {
+        Statement statement;
+        ResultSet rs;
+        try {
+            String query = String.format("select * from %s", tableName);
+            statement = con.createStatement();
+            rs = statement.executeQuery(query);
+            while (rs.next()){
+                System.out.print(rs.getString("empid") + " ");
+                System.out.print(rs.getString("city") + " ");
+                System.out.print(rs.getString("country") + " ");
+                System.out.print(rs.getString("cityid") + " ");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

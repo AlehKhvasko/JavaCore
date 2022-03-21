@@ -19,7 +19,11 @@ public class WeatherServiceImpl {
         connection.createTable(con, name);
     }
 
-    public void insert(Connection con, String tableName, String city, String country, int cityid) {
+    public void insert(Connection con, String tableName, String city, String country, String cityid) {
         connection.insert(con, tableName, city, country, cityid);
+    }
+
+    public void read(Connection con, String table){
+        connection.read(con,table);
     }
 }

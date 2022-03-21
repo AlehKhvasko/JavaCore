@@ -14,12 +14,13 @@ public class SQLiteRepositoryImpl implements DBConnection{
     }
 
     @Override
-    public void insert(Connection con, String tableName, String city, String country, int cityid) {
+    public void insert(Connection con, String tableName, String city, String country, String cityid) {
 
     }
 
+
     @Override
-    public void read() {
+    public void read(Connection con, String tableName) {
 
     }
 

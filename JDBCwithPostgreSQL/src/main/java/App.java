@@ -11,7 +11,8 @@ public class App {
                 .getConnection("ApiWeather", "postgres", "19855891");
 
         //postgresDB.createTable(postgresConnection, "top50cities");
-        postgresDB.insert(postgresConnection, "top50cities", "Dhaka", "Asia", 28143);
+        //postgresDB.insert(postgresConnection, "top50cities", "Dhaka", "Asia", "28143");
+        postgresDB.read(postgresConnection, "top50cities");
 
 
 

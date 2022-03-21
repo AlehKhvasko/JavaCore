@@ -8,9 +8,9 @@ public interface DBConnection {
 
     void createTable(Connection con,String name);
 
-    void insert(Connection con, String tableName, String city, String country, int cityid);
+    void insert(Connection con, String tableName, String city, String country, String cityid);
 
-    void read();
+    public void read(Connection con, String tableName);
 
     void update();
 
