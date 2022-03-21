@@ -1,12 +1,11 @@
 package repository;
-import java.sql.Connection;
 
-public class DBConnection {
-    public Connection connect(){
-        Connection con = null;
+public interface DBConnection {
+    void insert();
 
+    void read();
 
-        return con;
-    }
+    void update();
 
+    void delete();
 }
