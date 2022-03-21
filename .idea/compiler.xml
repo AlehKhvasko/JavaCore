@@ -16,6 +16,7 @@
     <bytecodeTargetLevel>
       <module name="ApiWeather" target="11" />
       <module name="FilePracticeByJohn" target="11" />
+      <module name="Interface" target="11" />
     </bytecodeTargetLevel>
   </component>
 </project>

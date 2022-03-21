@@ -8,6 +8,7 @@
         <option value="$PROJECT_DIR$/WeatherApi/pom.xml" />
         <option value="$PROJECT_DIR$/JDBC/pom.xml" />
         <option value="$PROJECT_DIR$/JdbcWithSQLite/pom.xml" />
+        <option value="$PROJECT_DIR$/Interface/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">
