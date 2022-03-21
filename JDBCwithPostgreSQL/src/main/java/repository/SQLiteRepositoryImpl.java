@@ -9,7 +9,12 @@ public class SQLiteRepositoryImpl implements DBConnection{
     }
 
     @Override
-    public void insert() {
+    public void createTable(Connection con, String name) {
+
+    }
+
+    @Override
+    public void insert(Connection con, String tableName, String city, String country, int cityid) {
 
     }
 

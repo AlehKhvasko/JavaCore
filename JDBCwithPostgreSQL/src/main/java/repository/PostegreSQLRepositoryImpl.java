@@ -14,7 +14,7 @@ public class PostegreSQLRepositoryImpl implements DBConnection {
             con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/" + dbname, user, password);
             if (con != null) {
                 System.out.println("Connection established.");
-            }else{
+            } else {
                 System.err.println("Connection failed.");
             }
         } catch (ClassNotFoundException | SQLException e) {
@@ -23,21 +23,34 @@ public class PostegreSQLRepositoryImpl implements DBConnection {
         return con;
     }
 
-    public void createTable(Connection con, String tableName){
+    public void createTable(Connection con, String tableName) {
         Statement statement;
         try {
-            String query = "create table " + tableName + ("empid SERIAL, city varchar(200),country varchar(200), key int, primary key (empid));");
+            String query = "create table " + tableName + "(empid SERIAL , city varchar(200)," +
+                    " country varchar(200), cityID int, primary key (empid));";
+
             statement = con.createStatement();
             statement.executeUpdate(query);
             System.out.println("Table created.");
-        }catch (SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
     @Override
-    public void insert() {
-        System.out.println("insert");
+    public void insert(Connection con, String tableName, String city, String country, int cityid) {
+        Statement statement;
+            String query = String.format("insert into %s(city, country, cityid) values('%s','%s', %d);",
+                    tableName, city, country, cityid);
+
+        try {
+            statement = con.createStatement();
+            statement.executeUpdate(query);
+            System.out.println("Data has been inserted.");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
     }
 
     @Override

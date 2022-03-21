@@ -6,7 +6,9 @@ public interface DBConnection {
 
     Connection connect(String dbname, String user, String password);
 
-    void insert();
+    void createTable(Connection con,String name);
+
+    void insert(Connection con, String tableName, String city, String country, int cityid);
 
     void read();
 
