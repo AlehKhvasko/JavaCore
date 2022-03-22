@@ -1,11 +1,22 @@
 package repository;
-import java.sql.Connection;
 
-public class SQLiteRepositoryImpl implements DBConnection{
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
+public class SQLiteRepositoryImpl implements DBConnection {
 
     @Override
     public Connection connect(String dbname, String user, String password) {
-        return null;
+        Connection connection = null;
+        try {
+            String url = "jdbc:sqlite:C:\\Users\\alehk\\OneDrive\\Desktop\\DummyDB\\WeatherDB.db";
+            connection = DriverManager.getConnection(url);
+            System.out.println("SQLite connection has been established.");
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return connection;
     }
 
     @Override

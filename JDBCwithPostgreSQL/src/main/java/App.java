@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class App {
-    public static void main(String[] args) throws IOException, NoCityFound {
+    public static void main(String[] args) throws IOException {
 
         WeatherServiceImpl postgresDB = new WeatherServiceImpl(new PostegreSQLRepositoryImpl());
         Connection postgresConnection = postgresDB
@@ -29,9 +29,7 @@ public class App {
         AccuWeatherClient accuWeatherClient = new AccuWeatherClient(new ObjectMapper());
         List<City> cityList = accuWeatherClient.get50TopCitiesList();
 
-        /**
-         * injecting data to a DB
-         */
+        //injecting data to a DB
         //insertData(cityList, postgresDB, postgresConnection);
 
         System.out.println("Choose city you want to see from the list: ");
@@ -39,7 +37,8 @@ public class App {
 
         System.out.print("Input number of the city: => ");
         Scanner scanner = new Scanner(System.in);
-        int usersChoice = scanner.nextInt() - 1;
+        //TODO doesnt display cities correctly, shifts to 2 numbers down.
+        int usersChoice = scanner.nextInt() - 2;
 
         Root root = accuWeatherClient
                 .getCurrentConditions(postgresDB
