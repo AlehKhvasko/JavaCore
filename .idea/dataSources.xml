@@ -8,11 +8,11 @@
       <jdbc-url>jdbc:postgresql://localhost:5432/ApiWeather</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
-    <data-source source="LOCAL" name="WeatherApi" uuid="f6316332-f43e-4f9b-a96b-4491ea2b9bea">
+    <data-source source="LOCAL" name="ApiWeather.db" uuid="78f878d1-3a4e-4afc-9eb8-643fee65cfb0">
       <driver-ref>sqlite.xerial</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
-      <jdbc-url>jdbc:sqlite:C:\Users\alehk\OneDrive\Desktop\DummyDB\WeatherApi</jdbc-url>
+      <jdbc-url>jdbc:sqlite:C:\Users\alehk\OneDrive\Desktop\DummyDB\ApiWeather.db</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
   </component>
