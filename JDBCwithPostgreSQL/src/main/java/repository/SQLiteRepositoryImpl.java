@@ -38,4 +38,9 @@ public class SQLiteRepositoryImpl implements DBConnection{
     public void searchByCity(Connection con, String city) {
 
     }
+
+    @Override
+    public String getKeyById(Connection con, String id) {
+        return null;
+    }
 }

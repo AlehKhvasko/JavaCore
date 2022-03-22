@@ -38,4 +38,8 @@ public class WeatherServiceImpl {
     public void searchByCity(Connection con, String city){
         connection.searchByCity(con,city);
     }
+
+    public String getKeyById(Connection con, String id){
+        return connection.getKeyById(con, id);
+    }
 }

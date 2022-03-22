@@ -8,9 +8,17 @@ public class City {
     @JsonProperty("Country")
     public Country country;
     @JsonProperty("LocalizedName")
-    private String headline;
+    private String cityName;
     @JsonProperty("Key")
     private Integer cityKey;
+
+    public Country getCountry() {
+        return country;
+    }
+
+    public void setCountry(Country country) {
+        this.country = country;
+    }
 
     public City(
     ) {
@@ -20,17 +28,17 @@ public class City {
         return cityKey;
     }
 
-    public String getHeadline() {
-        return headline;
+    public String getCityName() {
+        return cityName;
     }
 
-    public void setHeadline(String headline) {
-        this.headline = headline;
+    public void setCityName(String cityName) {
+        this.cityName = cityName;
     }
 
     @Override
     public String toString() {
-        return "City" + " " + headline;
+        return "City" + " " + cityName;
     }
 }
 

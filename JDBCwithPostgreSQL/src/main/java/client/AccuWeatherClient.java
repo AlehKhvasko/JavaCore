@@ -4,6 +4,7 @@ import city.City;
 import client.utils.RequestApi;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.squareup.okhttp.Response;
 import weather.Root;
 
 import java.io.IOException;
@@ -21,7 +22,6 @@ public class AccuWeatherClient {
         RequestApi requestCities =
                 new RequestApi("locations", "topcities", "50");
         String response = requestCities.getResponse();
-
         return objectMapper.readValue(response, new TypeReference<>() {
         });
     }
