@@ -30,7 +30,7 @@ public class SQLiteRepositoryImpl implements DBConnection{
     }
 
     @Override
-    public void delete() {
+    public void delete(Connection con, String city) {
 
     }
 

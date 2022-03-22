@@ -14,7 +14,7 @@ public interface DBConnection {
 
     void update(Connection con, String tableName, String colomnName, String newValue, String oldValue);
 
-    void delete();
+    public void delete(Connection con,String city);
 
     void searchByCity(Connection con, String city);
 }

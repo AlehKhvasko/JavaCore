@@ -13,9 +13,10 @@ public class App {
         //postgresDB.createTable(postgresConnection, "top50cities");
         //postgresDB.insert(postgresConnection, "top50cities", "Dhaka", "Asia", "28143");
         //postgresDB.update(postgresConnection, "top50cities", "city", "Austin", "Dhaka" );
-        //postgresDB.read(postgresConnection, "top50cities");
         postgresDB.searchByCity(postgresConnection, "Austin");
+        postgresDB.delete(postgresConnection, "Austin");
 
+        postgresDB.read(postgresConnection, "top50cities");
 
 
 

@@ -85,8 +85,16 @@ public class PostegreSQLRepositoryImpl implements DBConnection {
     }
 
     @Override
-    public void delete() {
-
+    public void delete(Connection con,String city) {
+        Statement statement;
+        try {
+            String query = String.format("delete from top50cities where city='%s'", city);
+            statement = con.createStatement();
+            statement.executeUpdate(query);
+            System.out.println(city + " has been deleted.");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -101,7 +109,7 @@ public class PostegreSQLRepositoryImpl implements DBConnection {
                 System.out.print(rs.getString("empid") + " ");
                 System.out.print(rs.getString("city") + " ");
                 System.out.print(rs.getString("country") + " ");
-                System.out.print(rs.getString("cityid") + " ");
+                System.out.print(rs.getString("cityid") + "\n");
             }
         } catch (SQLException e) {
             e.printStackTrace();

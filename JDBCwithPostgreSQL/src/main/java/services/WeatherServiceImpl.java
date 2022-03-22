@@ -31,6 +31,10 @@ public class WeatherServiceImpl {
         connection.update(con,tableName,colomnName,newValue,oldValue);
     }
 
+    public void delete(Connection con,String city){
+        connection.delete(con, city);
+    }
+
     public void searchByCity(Connection con, String city){
         connection.searchByCity(con,city);
     }
