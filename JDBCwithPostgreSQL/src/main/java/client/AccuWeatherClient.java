@@ -4,7 +4,6 @@ import city.City;
 import client.utils.RequestApi;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.squareup.okhttp.Response;
 import weather.Root;
 
 import java.io.IOException;
@@ -13,7 +12,7 @@ import java.util.List;
 public class AccuWeatherClient {
 
     private final ObjectMapper objectMapper;
-    
+
     public AccuWeatherClient(ObjectMapper objectMapper) {
         this.objectMapper = objectMapper;
     }

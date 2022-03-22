@@ -1,7 +1,5 @@
 package client.utils;
-
 import com.squareup.okhttp.*;
-
 import java.io.IOException;
 
 public class RequestApi {
@@ -64,10 +62,6 @@ public class RequestApi {
                 .build();
 
         response = client.newCall(request).execute();
-    }
-
-    public String getApi() {
-        return api;
     }
 
     public String getResponse() throws IOException {
