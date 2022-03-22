@@ -30,4 +30,8 @@ public class WeatherServiceImpl {
     public void update(Connection con, String tableName, String colomnName, String newValue, String oldValue){
         connection.update(con,tableName,colomnName,newValue,oldValue);
     }
+
+    public void searchByCity(Connection con, String city){
+        connection.searchByCity(con,city);
+    }
 }

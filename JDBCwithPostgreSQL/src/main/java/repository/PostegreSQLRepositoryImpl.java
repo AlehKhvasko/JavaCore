@@ -88,4 +88,23 @@ public class PostegreSQLRepositoryImpl implements DBConnection {
     public void delete() {
 
     }
+
+    @Override
+    public void searchByCity(Connection con, String city){
+        Statement statement;
+        ResultSet rs = null;
+        try{
+            String query = String.format("select * from top50cities where city= '%s'", city);
+            statement = con.createStatement();
+            rs = statement.executeQuery(query);
+            while (rs.next()){
+                System.out.print(rs.getString("empid") + " ");
+                System.out.print(rs.getString("city") + " ");
+                System.out.print(rs.getString("country") + " ");
+                System.out.print(rs.getString("cityid") + " ");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

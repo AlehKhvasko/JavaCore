@@ -33,4 +33,9 @@ public class SQLiteRepositoryImpl implements DBConnection{
     public void delete() {
 
     }
+
+    @Override
+    public void searchByCity(Connection con, String city) {
+
+    }
 }
