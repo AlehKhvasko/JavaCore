@@ -70,7 +70,17 @@ public class PostegreSQLRepositoryImpl implements DBConnection {
     }
 
     @Override
-    public void update() {
+    public void update(Connection con, String tableName, String colomnName, String newValue, String oldValue) {
+        Statement statement;
+        try {
+            String query = String.format("update %s set %s='%s' where %s='%s'", tableName, colomnName, newValue, colomnName, oldValue);
+            statement = con.createStatement();
+            statement.executeUpdate(query);
+            System.out.println("Data has been updated");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
 
     }
 

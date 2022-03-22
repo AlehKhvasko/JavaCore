@@ -6,13 +6,12 @@ public interface DBConnection {
 
     Connection connect(String dbname, String user, String password);
 
-    void createTable(Connection con,String name);
+    void createTable(Connection con, String name);
 
     void insert(Connection con, String tableName, String city, String country, String cityid);
 
-    public void read(Connection con, String tableName);
-
-    void update();
+    void read(Connection con, String tableName);
+    void update(Connection con, String tableName, String colomnName, String newValue, String oldValue);
 
     void delete();
 }

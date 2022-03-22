@@ -25,7 +25,7 @@ public class SQLiteRepositoryImpl implements DBConnection{
     }
 
     @Override
-    public void update() {
+    public void update(Connection con, String tableName, String colomnName, String newValue, String oldValue) {
 
     }
 

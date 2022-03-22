@@ -26,4 +26,8 @@ public class WeatherServiceImpl {
     public void read(Connection con, String table){
         connection.read(con,table);
     }
+
+    public void update(Connection con, String tableName, String colomnName, String newValue, String oldValue){
+        connection.update(con,tableName,colomnName,newValue,oldValue);
+    }
 }
