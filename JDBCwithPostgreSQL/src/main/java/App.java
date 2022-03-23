@@ -33,12 +33,12 @@ public class App {
 
         //SQLite testing
         //sqliteDB.read(sqliteConnection, "top50cities");
-        sqliteDB.createTable(sqliteConnection, "top50cities");
-        //AccuWeatherClient accuWeatherClient = new AccuWeatherClient(new ObjectMapper());
-        //List<City> cityList = accuWeatherClient.get50TopCitiesList();
+        //sqliteDB.createTable(sqliteConnection, "top50cities");
+        AccuWeatherClient accuWeatherClient = new AccuWeatherClient(new ObjectMapper());
+        List<City> cityList = accuWeatherClient.get50TopCitiesList();
 
         //injecting data to SQLite
-        //insertData(cityList, sqliteDB, sqliteConnection);
+        insertData(cityList, sqliteDB, sqliteConnection);
 
 
         //injecting data to a DB
