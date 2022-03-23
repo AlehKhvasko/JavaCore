@@ -101,14 +101,17 @@ public class SQLiteRepositoryImpl implements DBConnection {
 
     @Override
     public void searchByCity(Connection con, String city) {
-        String query = "SELECT * FROM top50cities WHERE city = ?";
+        String query = "SELECT * FROM top50cities WHERE city= ?";
         try (Statement st = con.createStatement();
-             ResultSet rs = st.executeQuery(query)) {
-            while (rs.next()){
-                System.out.println(rs.getInt("empid"));
-                System.out.println(rs.getString("city"));
-                System.out.println(rs.getString("country"));
-                System.out.println(rs.getString("cityid"));
+             PreparedStatement pstmt = con.prepareStatement(query)) {
+            pstmt.setString(1, city);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                System.out.println("Your choice is " + city);
+                System.out.print(rs.getInt("empid") + " ");
+                System.out.print(rs.getString("city") + " ");
+                System.out.print(rs.getString("country") + " ");
+                System.out.print(rs.getString("cityid") + "\n");
             }
 
         } catch (SQLException e) {
@@ -118,6 +121,17 @@ public class SQLiteRepositoryImpl implements DBConnection {
 
     @Override
     public String getKeyById(Connection con, String id) {
-        return null;
+        String cityKey = null;
+        String query = "SELECT * FROM top50cities WHERE empid=" + id;
+        try (Statement st = con.createStatement();
+             ResultSet rs = st.executeQuery(query)
+        ) {
+            while (rs.next()) {
+                cityKey = rs.getString("cityid");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return cityKey;
     }
 }
