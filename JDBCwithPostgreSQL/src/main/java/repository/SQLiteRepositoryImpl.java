@@ -73,8 +73,17 @@ public class SQLiteRepositoryImpl implements DBConnection {
     }
 
     @Override
-    public void update(Connection con, String tableName, String colomnName, String newValue, String oldValue) {
-
+    public void update(Connection con, String tableName, String columnName, String newValue, String oldValue) {
+        String query = "UPDATE " + tableName + " SET " + columnName + " = ? "
+            + "WHERE " + columnName + " = ?";
+            try (PreparedStatement pstmt = con.prepareStatement(query)){
+                pstmt.setString(1, newValue);
+                pstmt.setString(2, oldValue);
+                pstmt.executeUpdate();
+                System.out.println(tableName + " has been updated.");
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
     }
 
     @Override
