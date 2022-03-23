@@ -32,6 +32,7 @@ public class SQLiteRepositoryImpl implements DBConnection {
 
         try (Statement stmt = con.createStatement()){
             stmt.execute(query);
+            System.out.println("Table " + name + " has been added.");
         }catch (SQLException e){
             System.out.println(e.getMessage());
         }
@@ -40,10 +41,12 @@ public class SQLiteRepositoryImpl implements DBConnection {
     @Override
     public void insert(Connection con, String tableName, String city, String country, String cityid) {
         Statement stmt;
-        String sql = "insert into top50cities (city, country, cityid) values (" + city + "," + country + "," + cityid + ")";
-        try {
-            stmt = con.createStatement();
-            stmt.executeUpdate(sql);
+        String query = "insert into " + tableName + "(city, country, cityid) values (?,?,?)";
+        try (PreparedStatement pstmt = con.prepareStatement(query)){
+            pstmt.setString(1, city);
+            pstmt.setString(2, country);
+            pstmt.setString(3, cityid);
+            pstmt.executeUpdate();
             System.out.println("Data has been added.");
         } catch (SQLException e) {
             System.out.println(e);
