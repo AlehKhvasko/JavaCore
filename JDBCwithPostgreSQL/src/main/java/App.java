@@ -3,6 +3,7 @@ import client.AccuWeatherClient;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import exceptions.NoCityFound;
 import repository.PostegreSQLRepositoryImpl;
+import repository.SQLiteRepositoryImpl;
 import services.WeatherServiceImpl;
 import weather.DailyForecast;
 import weather.Root;
@@ -15,10 +16,14 @@ import java.util.Scanner;
 public class App {
     public static void main(String[] args) throws IOException {
 
-        WeatherServiceImpl postgresDB = new WeatherServiceImpl(new PostegreSQLRepositoryImpl());
-        Connection postgresConnection = postgresDB
-                .getConnection("ApiWeather", "postgres", "19855891");
+        //WeatherServiceImpl postgresDB = new WeatherServiceImpl(new PostegreSQLRepositoryImpl());
+        //Connection postgresConnection = postgresDB
+        //        .getConnection("ApiWeather", "postgres", "19855891");
 
+        WeatherServiceImpl sqliteDB = new WeatherServiceImpl(new SQLiteRepositoryImpl());
+        Connection sqliteConnection = sqliteDB.getConnection("ApiWeather" ,"","");
+
+        //PostgreSQL testing
         //postgresDB.createTable(postgresConnection, "top50cities");
         //postgresDB.insert(postgresConnection, "top50cities", "Dhaka", "Asia", "28143");
         //postgresDB.update(postgresConnection, "top50cities", "city", "Austin", "Dhaka" );
@@ -26,13 +31,20 @@ public class App {
         //postgresDB.delete(postgresConnection, "Austin");
         //postgresDB.read(postgresConnection, "top50cities");
 
-        AccuWeatherClient accuWeatherClient = new AccuWeatherClient(new ObjectMapper());
-        List<City> cityList = accuWeatherClient.get50TopCitiesList();
+        //SQLite testing
+        //sqliteDB.read(sqliteConnection, "top50cities");
+        sqliteDB.createTable(sqliteConnection, "top50cities");
+        //AccuWeatherClient accuWeatherClient = new AccuWeatherClient(new ObjectMapper());
+        //List<City> cityList = accuWeatherClient.get50TopCitiesList();
+
+        //injecting data to SQLite
+        //insertData(cityList, sqliteDB, sqliteConnection);
+
 
         //injecting data to a DB
         //insertData(cityList, postgresDB, postgresConnection);
 
-        System.out.println("Choose city you want to see from the list: ");
+        /*System.out.println("Choose city you want to see from the list: ");
         postgresDB.read(postgresConnection, "top50cities");
 
         System.out.print("Input number of the city: => ");
@@ -50,7 +62,7 @@ public class App {
         List<DailyForecast> forecastsArr = root.dailyForecasts;
         for (DailyForecast forecast : forecastsArr) {
             System.out.println(forecast);
-        }
+        }*/
     }
 
     private static void showCities(List<City> cityList) throws NoCityFound {

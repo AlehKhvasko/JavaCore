@@ -1,11 +1,11 @@
 public class Display {
     private FishingTips tips;
 
-    public Display(FishingTips tips){
-        this.tips = tips;
+    public void setTips(FishingTips tips){
+         this.tips = tips;
     }
 
-    public void displayTips(){
+    public void displayTips() {
         tips.showTips();
     }
 }
