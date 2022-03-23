@@ -16,9 +16,9 @@ import java.util.Scanner;
 public class App {
     public static void main(String[] args) throws IOException {
 
-        WeatherServiceImpl postgresDB = new WeatherServiceImpl(new PostegreSQLRepositoryImpl());
-        Connection postgresConnection = postgresDB
-                .getConnection("ApiWeather", "postgres", "19855891");
+        //WeatherServiceImpl postgresDB = new WeatherServiceImpl(new PostegreSQLRepositoryImpl());
+        //Connection postgresConnection = postgresDB
+        //        .getConnection("ApiWeather", "postgres", "19855891");
 
         WeatherServiceImpl sqliteDB = new WeatherServiceImpl(new SQLiteRepositoryImpl());
         Connection sqliteConnection = sqliteDB.getConnection("ApiWeather" ,"","");
@@ -32,10 +32,10 @@ public class App {
         //postgresDB.read(postgresConnection, "top50cities");
 
         //SQLite testing
-        sqliteDB.read(sqliteConnection, "top50cities");
-
-        AccuWeatherClient accuWeatherClient = new AccuWeatherClient(new ObjectMapper());
-        List<City> cityList = accuWeatherClient.get50TopCitiesList();
+        //sqliteDB.read(sqliteConnection, "top50cities");
+        sqliteDB.createTable(sqliteConnection, "top50cities");
+        //AccuWeatherClient accuWeatherClient = new AccuWeatherClient(new ObjectMapper());
+        //List<City> cityList = accuWeatherClient.get50TopCitiesList();
 
         //injecting data to SQLite
         //insertData(cityList, sqliteDB, sqliteConnection);

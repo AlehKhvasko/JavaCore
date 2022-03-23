@@ -23,12 +23,23 @@ public class SQLiteRepositoryImpl implements DBConnection {
 
     @Override
     public void createTable(Connection con, String name) {
+        String query = "CREATE TABLE IF NOT EXISTS " + name +" (\n"
+            + " empid integer primary key autoincrement, \n"
+            + " city text NOT NULL, \n"
+            + " country text, \n"
+            + " cityid text\n"
+            + ");";
 
+        try (Statement stmt = con.createStatement()){
+            stmt.execute(query);
+        }catch (SQLException e){
+            System.out.println(e.getMessage());
+        }
     }
 
     @Override
     public void insert(Connection con, String tableName, String city, String country, String cityid) {
-        Statement stmt = null;
+        Statement stmt;
         String sql = "insert into top50cities (city, country, cityid) values (" + city + "," + country + "," + cityid + ")";
         try {
             stmt = con.createStatement();
