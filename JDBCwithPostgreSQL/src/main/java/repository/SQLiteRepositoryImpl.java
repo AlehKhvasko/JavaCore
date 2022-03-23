@@ -10,9 +10,9 @@ public class SQLiteRepositoryImpl implements DBConnection {
         try {
             String url = "jdbc:sqlite:C:\\Users\\alehk\\OneDrive\\Desktop\\DummyDB\\ApiWeather.db";
             connection = DriverManager.getConnection(url);
-            if (connection != null){
+            if (connection != null) {
                 System.out.println("SQLite connection has been established.");
-            }else{
+            } else {
                 System.err.println("SQLite connection failed.");
             }
         } catch (SQLException e) {
@@ -23,17 +23,17 @@ public class SQLiteRepositoryImpl implements DBConnection {
 
     @Override
     public void createTable(Connection con, String name) {
-        String query = "CREATE TABLE IF NOT EXISTS " + name +" (\n"
-            + " empid integer primary key autoincrement, \n"
-            + " city text NOT NULL, \n"
-            + " country text, \n"
-            + " cityid text\n"
-            + ");";
+        String query = "CREATE TABLE IF NOT EXISTS " + name + " (\n"
+                + " empid integer primary key autoincrement, \n"
+                + " city text NOT NULL, \n"
+                + " country text, \n"
+                + " cityid text\n"
+                + ");";
 
-        try (Statement stmt = con.createStatement()){
+        try (Statement stmt = con.createStatement()) {
             stmt.execute(query);
             System.out.println("Table " + name + " has been added.");
-        }catch (SQLException e){
+        } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
     }
@@ -42,7 +42,7 @@ public class SQLiteRepositoryImpl implements DBConnection {
     public void insert(Connection con, String tableName, String city, String country, String cityid) {
         Statement stmt;
         String query = "insert into " + tableName + "(city, country, cityid) values (?,?,?)";
-        try (PreparedStatement pstmt = con.prepareStatement(query)){
+        try (PreparedStatement pstmt = con.prepareStatement(query)) {
             pstmt.setString(1, city);
             pstmt.setString(2, country);
             pstmt.setString(3, cityid);
@@ -56,39 +56,82 @@ public class SQLiteRepositoryImpl implements DBConnection {
 
     @Override
     public void read(Connection con, String tableName) {
-            String sql = "select * from " + tableName;
+        String sql = "select * from " + tableName;
 
-            try (Statement st = con.createStatement();
-                 ResultSet rs = st.executeQuery(sql)){
+        try (Statement st = con.createStatement();
+             ResultSet rs = st.executeQuery(sql)) {
 
-                while (rs.next()){
-                    System.out.println(rs.getString("empid") + " " +
-                            rs.getString("city") +" " +
-                            rs.getString("country") + " " +
-                            rs.getString("cityid") + "\n");
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
+            while (rs.next()) {
+                System.out.println(rs.getString("empid") + " " +
+                        rs.getString("city") + " " +
+                        rs.getString("country") + " " +
+                        rs.getString("cityid"));
             }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
-    public void update(Connection con, String tableName, String colomnName, String newValue, String oldValue) {
-
+    public void update(Connection con, String tableName, String columnName, String newValue, String oldValue) {
+        String query = "UPDATE " + tableName + " SET " + columnName + " = ? "
+                + "WHERE " + columnName + " = ?";
+        try (PreparedStatement pstmt = con.prepareStatement(query)) {
+            pstmt.setString(1, newValue);
+            pstmt.setString(2, oldValue);
+            pstmt.executeUpdate();
+            System.out.println(tableName + " has been updated.");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void delete(Connection con, String city) {
+        String query = "DELETE FROM top50cities WHERE city= ?";
 
+        try (PreparedStatement pstmt = con.prepareStatement(query)) {
+            pstmt.setString(1, city);
+            pstmt.executeUpdate();
+            System.out.println(city + " has been deleted.");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void searchByCity(Connection con, String city) {
+        String query = "SELECT * FROM top50cities WHERE city= ?";
+        try (Statement st = con.createStatement();
+             PreparedStatement pstmt = con.prepareStatement(query)) {
+            pstmt.setString(1, city);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                System.out.println("Your choice is " + city);
+                System.out.print(rs.getInt("empid") + " ");
+                System.out.print(rs.getString("city") + " ");
+                System.out.print(rs.getString("country") + " ");
+                System.out.print(rs.getString("cityid") + "\n");
+            }
 
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public String getKeyById(Connection con, String id) {
-        return null;
+        String cityKey = null;
+        String query = "SELECT * FROM top50cities WHERE empid=" + id;
+        try (Statement st = con.createStatement();
+             ResultSet rs = st.executeQuery(query)
+        ) {
+            while (rs.next()) {
+                cityKey = rs.getString("cityid");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return cityKey;
     }
 }

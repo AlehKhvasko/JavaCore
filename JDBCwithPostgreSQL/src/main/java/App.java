@@ -32,14 +32,17 @@ public class App {
         //postgresDB.read(postgresConnection, "top50cities");
 
         //SQLite testing
-        //sqliteDB.read(sqliteConnection, "top50cities");
         //sqliteDB.createTable(sqliteConnection, "top50cities");
-        AccuWeatherClient accuWeatherClient = new AccuWeatherClient(new ObjectMapper());
-        List<City> cityList = accuWeatherClient.get50TopCitiesList();
+        //AccuWeatherClient accuWeatherClient = new AccuWeatherClient(new ObjectMapper());
+        //List<City> cityList = accuWeatherClient.get50TopCitiesList();
 
         //injecting data to SQLite
-        insertData(cityList, sqliteDB, sqliteConnection);
-
+        //insertData(cityList, sqliteDB, sqliteConnection);
+        //sqliteDB.delete(sqliteConnection, "Reykjavik");
+        //sqliteDB.read(sqliteConnection, "top50cities");
+        //sqliteDB.searchByCity(sqliteConnection, "Kabul");
+        //System.out.println( sqliteDB.getKeyById(sqliteConnection, "1"));
+        //sqliteDB.update(sqliteConnection, "top50cities", "city", "dhaka", "Dhaka");
 
         //injecting data to a DB
         //insertData(cityList, postgresDB, postgresConnection);
