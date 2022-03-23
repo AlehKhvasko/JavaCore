@@ -65,7 +65,7 @@ public class SQLiteRepositoryImpl implements DBConnection {
                     System.out.println(rs.getString("empid") + " " +
                             rs.getString("city") +" " +
                             rs.getString("country") + " " +
-                            rs.getString("cityid") + "\n");
+                            rs.getString("cityid"));
                 }
             } catch (SQLException e) {
                 e.printStackTrace();

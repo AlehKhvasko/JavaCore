@@ -1,0 +1,37 @@
+
+H
+java:S4925
+"-Remove this "Class.forName()", it is useless.(õ†¨Äùÿÿÿÿ
+N	java:S106"9Replace this use of System.out or System.err by a logger.(äˆ”ò
+N	java:S106"9Replace this use of System.out or System.err by a logger.(ÒØÚ
+S	java:S106"9Replace this use of System.out or System.err by a logger.(¨¶ÑÍþÿÿÿÿ
+N	java:S106"9Replace this use of System.out or System.err by a logger.(ö˜¡È
+N	java:S106."9Replace this use of System.out or System.err by a logger.(úºÑ„
+S	java:S106>"9Replace this use of System.out or System.err by a logger.(å‚Ý”ùÿÿÿÿ
+N	java:S106?"9Replace this use of System.out or System.err by a logger.(›ó‰Þ
+N	java:S106@"9Replace this use of System.out or System.err by a logger.(ÀÑÝ›
+S	java:S106A"9Replace this use of System.out or System.err by a logger.(ì³œ«úÿÿÿÿ
+M	java:S106O"9Replace this use of System.out or System.err by a logger.(òƒ¤2
+N	java:S106^"9Replace this use of System.out or System.err by a logger.(®¨ãû
+S	java:S106m"9Replace this use of System.out or System.err by a logger.(å‚Ý”ùÿÿÿÿ
+N	java:S106n"9Replace this use of System.out or System.err by a logger.(›ó‰Þ
+N	java:S106o"9Replace this use of System.out or System.err by a logger.(ÀÑÝ›
+S	java:S106p"9Replace this use of System.out or System.err by a logger.(ì³œ«úÿÿÿÿ
+b
+java:S1192A"GDefine a constant instead of duplicating this literal "cityid" 3 times.(ì³œ«úÿÿÿÿ
+b
+java:S2095,"GUse try-with-resources or close this "Statement" in a "finally" clause.(èû±öúÿÿÿÿ
+b
+java:S2095;"GUse try-with-resources or close this "Statement" in a "finally" clause.(èû±öúÿÿÿÿ
+b
+java:S2095"GUse try-with-resources or close this "Statement" in a "finally" clause.(èû±öúÿÿÿÿ
+b
+java:S2095j"GUse try-with-resources or close this "Statement" in a "finally" clause.(èû±öúÿÿÿÿ
+b
+java:S2095M"GUse try-with-resources or close this "Statement" in a "finally" clause.(èû±öúÿÿÿÿ
+b
+java:S2095\"GUse try-with-resources or close this "Statement" in a "finally" clause.(èû±öúÿÿÿÿ
+b
+java:S2095~"GUse try-with-resources or close this "Statement" in a "finally" clause.(èû±öúÿÿÿÿ
+^
+java:S2583"CChange this condition so that it does not always evaluate to "true"(ëº®×ýÿÿÿÿ
