@@ -16,9 +16,9 @@ import java.util.Scanner;
 public class App {
     public static void main(String[] args) throws IOException {
 
-        //WeatherServiceImpl postgresDB = new WeatherServiceImpl(new PostegreSQLRepositoryImpl());
-        //Connection postgresConnection = postgresDB
-        //        .getConnection("ApiWeather", "postgres", "19855891");
+        WeatherServiceImpl postgresDB = new WeatherServiceImpl(new PostegreSQLRepositoryImpl());
+        Connection postgresConnection = postgresDB
+                .getConnection("ApiWeather", "postgres", "19855891");
 
         WeatherServiceImpl sqliteDB = new WeatherServiceImpl(new SQLiteRepositoryImpl());
         Connection sqliteConnection = sqliteDB.getConnection("ApiWeather" ,"","");
@@ -33,22 +33,25 @@ public class App {
 
         //SQLite testing
         //sqliteDB.createTable(sqliteConnection, "top50cities");
-        //AccuWeatherClient accuWeatherClient = new AccuWeatherClient(new ObjectMapper());
-        //List<City> cityList = accuWeatherClient.get50TopCitiesList();
-
-        //injecting data to SQLite
-        //insertData(cityList, sqliteDB, sqliteConnection);
         //sqliteDB.delete(sqliteConnection, "Reykjavik");
         //sqliteDB.read(sqliteConnection, "top50cities");
         //sqliteDB.searchByCity(sqliteConnection, "Kabul");
         //System.out.println( sqliteDB.getKeyById(sqliteConnection, "1"));
         //sqliteDB.update(sqliteConnection, "top50cities", "city", "dhaka", "Dhaka");
 
+        //injecting data to SQLite
+        //insertData(cityList, sqliteDB, sqliteConnection);
+
         //injecting data to a DB
         //insertData(cityList, postgresDB, postgresConnection);
 
-        /*System.out.println("Choose city you want to see from the list: ");
+        AccuWeatherClient accuWeatherClient = new AccuWeatherClient(new ObjectMapper());
+        List<City> cityList = accuWeatherClient.get50TopCitiesList();
+
+        System.out.println("Choose city you want to see from the list: ");
+
         postgresDB.read(postgresConnection, "top50cities");
+        //sqliteDB.read(sqliteConnection, "top50cities");
 
         System.out.print("Input number of the city: => ");
         Scanner scanner = new Scanner(System.in);
@@ -65,7 +68,7 @@ public class App {
         List<DailyForecast> forecastsArr = root.dailyForecasts;
         for (DailyForecast forecast : forecastsArr) {
             System.out.println(forecast);
-        }*/
+        }
     }
 
     private static void showCities(List<City> cityList) throws NoCityFound {
