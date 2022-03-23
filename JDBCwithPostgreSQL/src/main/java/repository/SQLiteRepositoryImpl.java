@@ -88,7 +88,15 @@ public class SQLiteRepositoryImpl implements DBConnection {
 
     @Override
     public void delete(Connection con, String city) {
+        String query = "DELETE FROM top50cities WHERE city= ?";
 
+        try (PreparedStatement pstmt = con.prepareStatement(query)){
+            pstmt.setString(1, city);
+            pstmt.executeUpdate();
+            System.out.println(city + " has been deleted.");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

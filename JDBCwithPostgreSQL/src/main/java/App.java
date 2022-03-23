@@ -38,8 +38,9 @@ public class App {
 
         //injecting data to SQLite
         //insertData(cityList, sqliteDB, sqliteConnection);
-        //sqliteDB.read(sqliteConnection, "top50cities");
-        sqliteDB.update(sqliteConnection, "top50cities", "city", "dhaka", "Dhaka");
+        sqliteDB.delete(sqliteConnection, "Reykjavik");
+        sqliteDB.read(sqliteConnection, "top50cities");
+        //sqliteDB.update(sqliteConnection, "top50cities", "city", "dhaka", "Dhaka");
 
         //injecting data to a DB
         //insertData(cityList, postgresDB, postgresConnection);
