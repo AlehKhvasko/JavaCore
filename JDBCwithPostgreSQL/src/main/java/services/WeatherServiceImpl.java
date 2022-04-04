@@ -1,8 +1,11 @@
 package services;
 
+import city.City;
+import exceptions.NoCityFound;
 import repository.DBConnection;
 
 import java.sql.Connection;
+import java.util.List;
 
 public class WeatherServiceImpl {
     private final DBConnection connection;
@@ -15,31 +18,51 @@ public class WeatherServiceImpl {
         return connection.connect(DBname, userName, password);
     }
 
-    public void createTable(Connection con, String name) {
-        connection.createTable(con, name);
+    public void createTable(String name) {
+        connection.createTable(name);
     }
 
-    public void insert(Connection con, String tableName, String city, String country, String cityid) {
-        connection.insert(con, tableName, city, country, cityid);
+    public void insert(String tableName, String city, String cityid) {
+        connection.insert(tableName, city, cityid);
     }
 
-    public void read(Connection con, String table){
-        connection.read(con,table);
+    public void read(String table){
+        connection.read(table);
     }
 
-    public void update(Connection con, String tableName, String colomnName, String newValue, String oldValue){
-        connection.update(con,tableName,colomnName,newValue,oldValue);
+    public void update(int id, String colomnName, String newValue, String oldValue){
+        connection.update(id,colomnName,newValue,oldValue);
     }
 
-    public void delete(Connection con,String city){
-        connection.delete(con, city);
+    public void deleteByCity(String city){
+        connection.delete(city);
     }
 
-    public void searchByCity(Connection con, String city){
-        connection.searchByCity(con,city);
+    public void searchByCity(String city){
+        connection.searchByCity(city);
     }
 
-    public String getKeyById(Connection con, String id){
-        return connection.getKeyById(con, id);
+    public String getKeyById(String id){
+        return connection.getKeyById(id);
+    }
+
+    public void showCities(List<City> cityList) {
+        if (cityList.isEmpty()) {
+            try {
+                throw new NoCityFound();
+            } catch (NoCityFound noCityFound) {
+                noCityFound.printStackTrace();
+            }
+        }
+        for (int i = 0; i < cityList.size(); i++) {
+            System.out.printf("%d. %s, %s %n", (i + 1), cityList.get(i), cityList.get(i).country);
+        }
+    }
+
+    public void insertData(List<City> cityList, WeatherServiceImpl postgresDB) {
+        cityList.stream().forEach(city -> postgresDB
+                .insert("top50cities",
+                        city.getCityName(),
+                        String.valueOf(city.getCityKey())));
     }
 }

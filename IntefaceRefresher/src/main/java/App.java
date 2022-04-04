@@ -17,7 +17,6 @@ public class App {
         coloradoRiver.setTips(newRef);
 
         coloradoRiver.displayTips();
-
         // Lambda expression
         Display lambdaTravis =  new Display();
         lambdaTravis.displayTips();
