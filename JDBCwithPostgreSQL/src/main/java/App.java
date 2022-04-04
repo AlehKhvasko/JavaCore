@@ -24,11 +24,11 @@ public class App {
 
         //PostgreSQL testing
         //postgresDB.createTable("top50cities");
-        postgresDB.insert("top50cities", "Dhaka","28143");
-        postgresDB.update(1, "top50cities", "name", "Austin");
-        postgresDB.searchByCity("austin");
-        postgresDB.deleteByCity("Austin");
-        postgresDB.read("top50cities");
+        //postgresDB.insert("top50cities", "Dhaka","28143");
+        //postgresDB.update(1, "top50cities", "name", "Austin");
+        //postgresDB.searchByCity("austin");
+        //postgresDB.deleteByCity("Austin");
+        //postgresDB.read("top50cities");
 
         //SQLite testing
         //sqliteDB.createTable(sqliteConnection, "top50cities");
@@ -38,15 +38,15 @@ public class App {
         //System.out.println( sqliteDB.getKeyById(sqliteConnection, "1"));
         //sqliteDB.update(sqliteConnection, "top50cities", "city", "dhaka", "Dhaka");
 
-        //AccuWeatherClient accuWeatherClient = new AccuWeatherClient(new ObjectMapper());
-        //List<City> cityList = accuWeatherClient.get50TopCitiesList();
-        //postgresDB.showCities(cityList);
+        AccuWeatherClient accuWeatherClient = new AccuWeatherClient(new ObjectMapper());
+        List<City> cityList = accuWeatherClient.get50TopCitiesList();
+        postgresDB.showCities(cityList);
 
         //injecting data to SQLite
         //insertData(cityList, sqliteDB, sqliteConnection);
 
         //injecting data to a DB
-        //insertData(cityList, postgresDB, postgresConnection);
+        //postgresDB.insertData(cityList, postgresDB);
 
 
         System.out.println("Choose city you want to see from the list: ");
@@ -59,16 +59,16 @@ public class App {
         //TODO doesnt display cities correctly, shifts to 2 numbers down.
         int usersChoice = scanner.nextInt() - 2;
 
-        //Root root = accuWeatherClient
-        //        .getCurrentConditions(postgresDB
-        //               .getKeyById(postgresConnection,String.valueOf(usersChoice)));
+        Root root = accuWeatherClient
+                .getCurrentConditions(postgresDB
+                       .getKeyById(String.valueOf(usersChoice)));
 
-        //System.out.println("\t Your choice is: " + cityList.get(usersChoice));
-        //System.out.println(root.headline);
+        System.out.println("\t Your choice is: " + cityList.get(usersChoice));
+        System.out.println(root.headline);
 
-        //List<DailyForecast> forecastsArr = root.dailyForecasts;
-        //for (DailyForecast forecast : forecastsArr) {
-        //    System.out.println(forecast);
-        //}
+        List<DailyForecast> forecastsArr = root.dailyForecasts;
+        for (DailyForecast forecast : forecastsArr) {
+            System.out.println(forecast);
+        }
     }
 }
