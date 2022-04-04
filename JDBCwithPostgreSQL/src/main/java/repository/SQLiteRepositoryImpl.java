@@ -1,3 +1,4 @@
+/*
 package repository;
 
 import java.sql.*;
@@ -39,13 +40,12 @@ public class SQLiteRepositoryImpl implements DBConnection {
     }
 
     @Override
-    public void insert(Connection con, String tableName, String city, String country, String cityid) {
+    public void insert(Connection con, String tableName, String city, String cityid) {
         Statement stmt;
         String query = "insert into " + tableName + "(city, country, cityid) values (?,?,?)";
         try (PreparedStatement pstmt = con.prepareStatement(query)) {
             pstmt.setString(1, city);
-            pstmt.setString(2, country);
-            pstmt.setString(3, cityid);
+            pstmt.setString(2, cityid);
             pstmt.executeUpdate();
             System.out.println("Data has been added.");
         } catch (SQLException e) {
@@ -73,12 +73,12 @@ public class SQLiteRepositoryImpl implements DBConnection {
     }
 
     @Override
-    public void update(Connection con, String tableName, String columnName, String newValue, String oldValue) {
+    public void update(Connection con, int id, String tableName, String columnName, String newValue, String oldValue) {
         String query = "UPDATE " + tableName + " SET " + columnName + " = ? "
-                + "WHERE " + columnName + " = ?";
+                + "WHERE id" + " = ?";
         try (PreparedStatement pstmt = con.prepareStatement(query)) {
             pstmt.setString(1, newValue);
-            pstmt.setString(2, oldValue);
+            pstmt.setString(2, id);
             pstmt.executeUpdate();
             System.out.println(tableName + " has been updated.");
         } catch (SQLException e) {
@@ -135,3 +135,4 @@ public class SQLiteRepositoryImpl implements DBConnection {
         return cityKey;
     }
 }
+*/

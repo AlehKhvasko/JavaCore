@@ -6,17 +6,17 @@ public interface DBConnection {
 
     Connection connect(String dbname, String user, String password);
 
-    void createTable(Connection con, String name);
+    void createTable(String name);
 
-    void insert(Connection con, String tableName, String city, String country, String cityid);
+    void insert(String tableName, String city,String cityid);
 
-    void read(Connection con, String tableName);
+    void read(String tableName);
 
-    void update(Connection con, String tableName, String colomnName, String newValue, String oldValue);
+    public void update(int id, String tableName, String newValue, String oldValue);
 
-    public void delete(Connection con,String city);
+    public void delete(String city);
 
-    void searchByCity(Connection con, String city);
+    void searchByCity(String city);
 
-    public String getKeyById(Connection con, String id);
+    public String getKeyById(String id);
 }

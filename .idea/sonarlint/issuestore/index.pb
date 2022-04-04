@@ -29,15 +29,13 @@ b
 2JDBCwithPostgreSQL/src/main/java/city/Country.java,3\0\301672ead4c2f621fa721373a452d3275e13874c
 _
 /JDBCwithPostgreSQL/src/main/java/city/City.java,8\d\8dfc52aef72bafd0fa18d7cece89312e733897c7
-n
->JDBCwithPostgreSQL/src/main/java/client/AccuWeatherClient.java,b\0\b0f60e5868f8d13822738b38deae6189b24743f2
 }
 MJdbcWithSQLite/src/main/java/repository/PostgresSqlWeatherRepositoryImpl.java,a\6\a63b259a317ba4964c037653d8d6029b8293b3ee
 e
 5JdbcWithSQLite/src/main/java/Services/InsertData.java,9\2\923dad15a3868b2ac0d7799353722ad1cea9ee70
 k
 ;JdbcWithSQLite/src/main/java/Repositories/DBConnection.java,2\a\2a62369b887e9ee5d1afbac58151d57c4d013690
-m
-=JDBCwithPostgreSQL/src/main/java/repository/DBConnection.java,1\f\1f6fe90cfcbaeabe1bcaad6a30e368953962f211
 J
 JDBCwithPostgreSQL/pom.xml,8\7\87fabd7c5c5ad711642b7e5095ff38edb18f8040
+c
+3JdbcWithSQLite/src/main/java/Services/ReadData.java,7\e\7e97fd4f653e1371d52de64f8b9ebd0e0bbda3c1
