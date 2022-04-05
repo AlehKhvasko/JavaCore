@@ -27,3 +27,13 @@ J
 JDBCwithPostgreSQL/pom.xml,8\7\87fabd7c5c5ad711642b7e5095ff38edb18f8040
 c
 3JdbcWithSQLite/src/main/java/Services/ReadData.java,7\e\7e97fd4f653e1371d52de64f8b9ebd0e0bbda3c1
+k
+;JDBCwithPostgreSQL/src/main/java/weather/DailyForecast.java,8\7\87ccf592c46b2f5dea3f0dc4cf24af22a8cc932f
+f
+6JDBCwithPostgreSQL/src/main/java/weather/Headline.java,d\9\d9fcd5513a616a2fc399f290401a1afdaa819d26
+e
+5JDBCwithPostgreSQL/src/main/java/weather/Maximum.java,0\9\097562bc7b72821407561d8cad82ad63294cd06e
+b
+2JDBCwithPostgreSQL/src/main/java/weather/Root.java,d\5\d5f0cb5c8e47ad3463e85f3693b9c7f18c571f45
+e
+5JDBCwithPostgreSQL/src/main/java/weather/Minimum.java,9\7\971c1ce88a974a5982a14aac64db3386607b5b7b

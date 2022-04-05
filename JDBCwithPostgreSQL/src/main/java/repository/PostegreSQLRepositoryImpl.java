@@ -87,7 +87,8 @@ public class PostegreSQLRepositoryImpl implements DBConnection {
     public void update(int id, String tableName, String columnName, String updatedValue) {
         Statement statement;
         try {
-            String query = String.format("update %s set %s='%s' where id ='%s'", tableName, columnName, columnName, id);
+            String query = String.format("update %s set %s='%s' where id ='%s'",
+                    tableName, columnName, columnName, id);
             statement = con.createStatement();
             statement.executeUpdate(query);
             System.out.println("Data has been updated");

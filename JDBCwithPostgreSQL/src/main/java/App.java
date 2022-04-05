@@ -56,7 +56,7 @@ public class App {
 
         System.out.print("Input number of the city: => ");
         Scanner scanner = new Scanner(System.in);
-        //TODO doesnt display cities correctly, shifts to 2 numbers down.
+        //TODO doesnt display cities correctly, ids don't match, try to use simple count.
         int usersChoice = scanner.nextInt() - 2;
 
         Root root = accuWeatherClient
