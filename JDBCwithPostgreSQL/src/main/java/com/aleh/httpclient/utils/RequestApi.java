@@ -1,4 +1,4 @@
-package client.utils;
+package com.aleh.httpclient.utils;
 import com.squareup.okhttp.*;
 import java.io.IOException;
 
@@ -11,7 +11,9 @@ public class RequestApi {
     public final String secondParameter;
     public final String thirdParameter;
     public final Response response;
+
     private final String api = "w2EKSVBMOpVbMyHkQC30jv0PN9IalA5l";
+
     public String fourthParameter;
 
     public RequestApi(String firstParameter, String secondParameter,

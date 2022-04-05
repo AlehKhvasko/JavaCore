@@ -1,10 +1,10 @@
-package client;
+package com.aleh.httpclient;
 
-import city.City;
-import client.utils.RequestApi;
+import com.aleh.model.http.city.City;
+import com.aleh.httpclient.utils.RequestApi;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import weather.Root;
+import com.aleh.model.http.weather.Root;
 
 import java.io.IOException;
 import java.util.List;

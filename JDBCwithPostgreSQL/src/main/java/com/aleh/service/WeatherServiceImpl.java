@@ -1,25 +1,17 @@
-package services;
+package com.aleh.service;
 
-import city.City;
-import exceptions.NoCityFound;
-import repository.DBConnection;
+import com.aleh.model.db.WeatherHistory;
+import com.aleh.model.http.city.City;
+import com.aleh.exception.NoCityFound;
+import com.aleh.repository.RepositoryI;
 
-import java.sql.Connection;
 import java.util.List;
 
 public class WeatherServiceImpl {
-    private final DBConnection connection;
+    private final RepositoryI connection;
 
-    public WeatherServiceImpl(DBConnection connection) {
+    public WeatherServiceImpl(RepositoryI connection) {
         this.connection = connection;
-    }
-
-    public Connection getConnection(String DBname, String userName, String password) {
-        return connection.connect(DBname, userName, password);
-    }
-
-    public void createTable(String name) {
-        connection.createTable(name);
     }
 
     public void insert(String tableName, String city, String cityid) {
@@ -61,6 +53,11 @@ public class WeatherServiceImpl {
 
     public void insertWeather(int city_key, String min_t, String max_t, String text){
         connection.insertWeather(city_key, min_t, max_t, text);
+    }
+
+    public void insertWeather(WeatherHistory weatherHistory) {
+        //cheack if not exist
+        connection.insertWeather(weatherHistory);
     }
 
     public void insertData(List<City> cityList, WeatherServiceImpl postgresDB) {

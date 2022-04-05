@@ -1,14 +1,10 @@
-package repository;
+package com.aleh.repository;
 
-import java.sql.Connection;
+import com.aleh.model.db.WeatherHistory;
 
-public interface DBConnection {
+public interface RepositoryI {
 
-    Connection connect(String dbname, String user, String password);
-
-    void createTable(String name);
-
-    void insert(String tableName, String city,String cityid);
+    void insert(String tableName, String city, String cityid);
 
     void read(String tableName);
 
@@ -20,5 +16,8 @@ public interface DBConnection {
 
     void insertWeather(int city_key, String min_t, String max_t, String text);
 
+    void insertWeather(WeatherHistory weatherHistory);
+
     int getKeyById(int id);
+
 }

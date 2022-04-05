@@ -1,11 +1,10 @@
-package city;
+package com.aleh.model.http.city;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Country {
-
 
     @JsonProperty("LocalizedName")
     private String localName;
