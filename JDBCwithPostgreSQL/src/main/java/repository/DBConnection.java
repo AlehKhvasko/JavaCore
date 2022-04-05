@@ -12,11 +12,13 @@ public interface DBConnection {
 
     void read(String tableName);
 
-    public void update(int id, String tableName, String newValue, String oldValue);
+    void update(int id, String tableName, String newValue, String oldValue);
 
-    public void delete(String city);
+    void delete(String city);
 
     void searchByCity(String city);
 
-    public String getKeyById(String id);
+    void insertWeather(int city_key, String min_t, String max_t, String text);
+
+    int getKeyById(int id);
 }

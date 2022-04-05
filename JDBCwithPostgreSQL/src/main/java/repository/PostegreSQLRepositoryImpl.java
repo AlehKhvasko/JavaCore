@@ -37,13 +37,28 @@ public class PostegreSQLRepositoryImpl implements DBConnection {
     @Override
     public void insert(String tableName, String city, String cityid) {
         Statement statement;
-            String query = String.format("insert into %s(name, cityid) values('%s', %s);",
-                    tableName, city, cityid);
+        String query = String.format("insert into %s(name, cityid) values('%s', %s);",
+                tableName, city, cityid);
 
         try {
             statement = con.createStatement();
             statement.executeUpdate(query);
             System.out.println("Data has been inserted.");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    @Override
+    public void insertWeather(int city_key, String min_t, String max_t, String text) {
+        Statement statement;
+        String query = String.format("insert into weather_history(city_key, min_t, max_t, text)" +
+                        " values(%s, %s, %s, '%s');", city_key, min_t, max_t, text);
+        try {
+            statement = con.createStatement();
+            statement.executeUpdate(query);
+            System.out.println("Weather data has been inserted.");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -58,7 +73,7 @@ public class PostegreSQLRepositoryImpl implements DBConnection {
             String query = String.format("select * from %s", tableName);
             statement = con.createStatement();
             rs = statement.executeQuery(query);
-            while (rs.next()){
+            while (rs.next()) {
                 System.out.print(rs.getString("id") + " ");
                 System.out.print(rs.getString("name") + " ");
                 System.out.print(rs.getString("cityid") + "\n");
@@ -97,14 +112,14 @@ public class PostegreSQLRepositoryImpl implements DBConnection {
     }
 
     @Override
-    public void searchByCity(String city){
+    public void searchByCity(String city) {
         Statement statement;
         ResultSet rs = null;
-        try{
+        try {
             String query = String.format("select * from top50cities where name= '%s'", city);
             statement = con.createStatement();
             rs = statement.executeQuery(query);
-            while (rs.next()){
+            while (rs.next()) {
                 System.out.print(rs.getString("empid") + " ");
                 System.out.print(rs.getString("city") + " ");
                 System.out.print(rs.getString("country") + " ");
@@ -116,16 +131,16 @@ public class PostegreSQLRepositoryImpl implements DBConnection {
     }
 
     @Override
-    public String getKeyById(String id){
+    public int getKeyById(int id) {
         Statement statement;
         ResultSet rs = null;
-        String cityKey = null;
-        try{
-            String query = String.format("select * from top50cities where empid= '%s'", id);
+        int cityKey = 0;
+        try {
+            String query = String.format("select * from top50cities where id= '%s'", id);
             statement = con.createStatement();
             rs = statement.executeQuery(query);
-            while (rs.next()){
-                cityKey = rs.getString("cityid");
+            while (rs.next()) {
+                cityKey = rs.getInt("cityid");
             }
         } catch (SQLException e) {
             e.printStackTrace();

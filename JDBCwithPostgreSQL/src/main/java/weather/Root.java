@@ -12,7 +12,6 @@ public class Root {
     @JsonProperty("DailyForecasts")
     public List<DailyForecast> dailyForecasts;
 
-    @SuppressWarnings("unused")
     public Headline getHeadline() {
         return headline;
     }

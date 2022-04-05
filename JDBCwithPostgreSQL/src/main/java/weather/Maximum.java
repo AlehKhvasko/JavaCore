@@ -6,9 +6,25 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Maximum {
     @JsonProperty("Value")
-    public int value;
+    public String value;
     @JsonProperty("Unit")
     public String unit;
+
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
+    }
+
+    public String getUnit() {
+        return unit;
+    }
+
+    public void setUnit(String unit) {
+        this.unit = unit;
+    }
 
     @Override
     public String toString() {

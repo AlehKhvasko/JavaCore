@@ -30,8 +30,8 @@ public class WeatherServiceImpl {
         connection.read(table);
     }
 
-    public void update(int id, String colomnName, String newValue, String oldValue){
-        connection.update(id,colomnName,newValue,oldValue);
+    public void update(int id, String columnName, String newValue, String oldValue){
+        connection.update(id,columnName,newValue,oldValue);
     }
 
     public void deleteByCity(String city){
@@ -42,7 +42,7 @@ public class WeatherServiceImpl {
         connection.searchByCity(city);
     }
 
-    public String getKeyById(String id){
+    public int getKeyById(int id){
         return connection.getKeyById(id);
     }
 
@@ -57,6 +57,10 @@ public class WeatherServiceImpl {
         for (int i = 0; i < cityList.size(); i++) {
             System.out.printf("%d. %s, %s %n", (i + 1), cityList.get(i), cityList.get(i).country);
         }
+    }
+
+    public void insertWeather(int city_key, String min_t, String max_t, String text){
+        connection.insertWeather(city_key, min_t, max_t, text);
     }
 
     public void insertData(List<City> cityList, WeatherServiceImpl postgresDB) {

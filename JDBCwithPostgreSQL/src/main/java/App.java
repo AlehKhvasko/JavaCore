@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class App {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, NoCityFound {
 
         WeatherServiceImpl postgresDB = new WeatherServiceImpl(new PostegreSQLRepositoryImpl());
         Connection postgresConnection = postgresDB
@@ -60,15 +60,36 @@ public class App {
         int usersChoice = scanner.nextInt() - 2;
 
         Root root = accuWeatherClient
-                .getCurrentConditions(postgresDB
-                       .getKeyById(String.valueOf(usersChoice)));
+                .getCurrentConditions(String.valueOf(postgresDB
+                        .getKeyById(usersChoice)));
+
 
         System.out.println("\t Your choice is: " + cityList.get(usersChoice));
         System.out.println(root.headline);
 
         List<DailyForecast> forecastsArr = root.dailyForecasts;
-        for (DailyForecast forecast : forecastsArr) {
-            System.out.println(forecast);
-        }
+        //TODO refactor streams
+        postgresDB.insertWeather(postgresDB.getKeyById(usersChoice), forecastsArr
+                        .stream()
+                        .map((forecast) -> {
+                            return forecast
+                                    .getTemperature()
+                                    .getMaximum()
+                                    .getValue();
+                        })
+                        .findAny()
+                        .orElseThrow(NoCityFound::new),
+                forecastsArr
+                        .stream()
+                        .map((forecast) -> {
+                            return forecast
+                                    .getTemperature()
+                                    .getMinimum()
+                                    .getValue();
+                        })
+                        .findAny()
+                        .orElseThrow(NoCityFound::new),
+                root.headline.getText()
+        );
     }
 }
