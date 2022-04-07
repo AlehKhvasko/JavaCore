@@ -1,38 +1,43 @@
-package repository;
+package com.aleh.repository;
+
+import com.aleh.model.db.WeatherHistory;
+import com.aleh.utils.PropsHelper;
 
 import java.sql.*;
+import java.util.Properties;
 
-public class PostegreSQLRepositoryImpl implements DBConnection {
-    Connection con = null;
+public class PostegreSQLRepositoryImpl implements RepositoryI {
+    private Connection con;
 
-    public Connection connect(String dbname, String user, String password) {
+    public PostegreSQLRepositoryImpl() {
         try {
+            Properties properties = PropsHelper.getProps();
+
             Class.forName("org.postgresql.Driver");
-            con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/" + dbname, user, password);
-            if (con != null) {
-                System.out.println("Connection established.");
-            } else {
-                System.err.println("Connection failed.");
-            }
+            con = DriverManager.getConnection(
+                    properties.getProperty("postgres.db.url"),
+                    properties.getProperty("postgres.db.user"),
+                    properties.getProperty("postgres.db.password")
+            );
+
         } catch (ClassNotFoundException | SQLException e) {
-            System.out.println(e);
-        }
-        return con;
-    }
-
-    public void createTable(String tableName) {
-        Statement statement;
-        try {
-            String query = "create table " + tableName + "(id SERIAL , name varchar(200)," +
-                    " cityID int, primary key (id));";
-
-            statement = con.createStatement();
-            statement.executeUpdate(query);
-            System.out.println("Table created.");
-        } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
     }
+
+//    public void createTable(String tableName) {
+//        Statement statement;
+//        try {
+//            String query = "create table " + tableName + "(id SERIAL , name varchar(200)," +
+//                    " cityID int, primary key (id));";
+//
+//            statement = con.createStatement();
+//            statement.executeUpdate(query);
+//            System.out.println("Table created.");
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
     @Override
     public void insert(String tableName, String city, String cityid) {
@@ -54,7 +59,7 @@ public class PostegreSQLRepositoryImpl implements DBConnection {
     public void insertWeather(int city_key, String min_t, String max_t, String text) {
         Statement statement;
         String query = String.format("insert into weather_history(city_key, min_t, max_t, text)" +
-                        " values(%s, %s, %s, '%s');", city_key, min_t, max_t, text);
+                " values(%s, %s, %s, '%s');", city_key, min_t, max_t, text);
         try {
             statement = con.createStatement();
             statement.executeUpdate(query);
@@ -62,7 +67,6 @@ public class PostegreSQLRepositoryImpl implements DBConnection {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
     }
 
     @Override
@@ -147,5 +151,23 @@ public class PostegreSQLRepositoryImpl implements DBConnection {
             e.printStackTrace();
         }
         return cityKey;
+    }
+
+    @Override
+    public void insertWeather(WeatherHistory weatherHistory) {
+        Statement statement;
+        String query = String.format("insert into weather_history(city_key, min_t, max_t, text)" +
+                " values(%s, %s, %s, '%s');",
+                weatherHistory.getCityKey(),
+                weatherHistory.getMinT(),
+                weatherHistory.getMaxT(),
+                weatherHistory.getText());
+        try {
+            statement = con.createStatement();
+            statement.executeUpdate(query);
+            System.out.println("Weather data has been inserted.");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

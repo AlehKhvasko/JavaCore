@@ -1,4 +1,4 @@
-package city;
+package com.aleh.model.http.city;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -12,16 +12,16 @@ public class City {
     @JsonProperty("Key")
     private Integer cityKey;
 
+    public City(
+    ) {
+    }
+
     public Country getCountry() {
         return country;
     }
 
     public void setCountry(Country country) {
         this.country = country;
-    }
-
-    public City(
-    ) {
     }
 
     public Integer getCityKey() {

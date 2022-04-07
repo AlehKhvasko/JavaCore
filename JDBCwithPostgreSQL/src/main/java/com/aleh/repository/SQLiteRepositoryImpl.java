@@ -1,9 +1,9 @@
 /*
-package repository;
+package com.aleh.repository;
 
 import java.sql.*;
 
-public class SQLiteRepositoryImpl implements DBConnection {
+public class SQLiteRepositoryImpl implements RepositoryI {
 
     @Override
     public Connection connect(String dbname, String user, String password) {
@@ -26,7 +26,7 @@ public class SQLiteRepositoryImpl implements DBConnection {
     public void createTable(Connection con, String name) {
         String query = "CREATE TABLE IF NOT EXISTS " + name + " (\n"
                 + " empid integer primary key autoincrement, \n"
-                + " city text NOT NULL, \n"
+                + " com.aleh.model.http.city text NOT NULL, \n"
                 + " country text, \n"
                 + " cityid text\n"
                 + ");";
@@ -40,11 +40,11 @@ public class SQLiteRepositoryImpl implements DBConnection {
     }
 
     @Override
-    public void insert(Connection con, String tableName, String city, String cityid) {
+    public void insert(Connection con, String tableName, String com.aleh.model.http.city, String cityid) {
         Statement stmt;
-        String query = "insert into " + tableName + "(city, country, cityid) values (?,?,?)";
+        String query = "insert into " + tableName + "(com.aleh.model.http.city, country, cityid) values (?,?,?)";
         try (PreparedStatement pstmt = con.prepareStatement(query)) {
-            pstmt.setString(1, city);
+            pstmt.setString(1, com.aleh.model.http.city);
             pstmt.setString(2, cityid);
             pstmt.executeUpdate();
             System.out.println("Data has been added.");
@@ -63,7 +63,7 @@ public class SQLiteRepositoryImpl implements DBConnection {
 
             while (rs.next()) {
                 System.out.println(rs.getString("empid") + " " +
-                        rs.getString("city") + " " +
+                        rs.getString("com.aleh.model.http.city") + " " +
                         rs.getString("country") + " " +
                         rs.getString("cityid"));
             }
@@ -87,29 +87,29 @@ public class SQLiteRepositoryImpl implements DBConnection {
     }
 
     @Override
-    public void delete(Connection con, String city) {
-        String query = "DELETE FROM top50cities WHERE city= ?";
+    public void delete(Connection con, String com.aleh.model.http.city) {
+        String query = "DELETE FROM top50cities WHERE com.aleh.model.http.city= ?";
 
         try (PreparedStatement pstmt = con.prepareStatement(query)) {
-            pstmt.setString(1, city);
+            pstmt.setString(1, com.aleh.model.http.city);
             pstmt.executeUpdate();
-            System.out.println(city + " has been deleted.");
+            System.out.println(com.aleh.model.http.city + " has been deleted.");
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
     @Override
-    public void searchByCity(Connection con, String city) {
-        String query = "SELECT * FROM top50cities WHERE city= ?";
+    public void searchByCity(Connection con, String com.aleh.model.http.city) {
+        String query = "SELECT * FROM top50cities WHERE com.aleh.model.http.city= ?";
         try (Statement st = con.createStatement();
              PreparedStatement pstmt = con.prepareStatement(query)) {
-            pstmt.setString(1, city);
+            pstmt.setString(1, com.aleh.model.http.city);
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
-                System.out.println("Your choice is " + city);
+                System.out.println("Your choice is " + com.aleh.model.http.city);
                 System.out.print(rs.getInt("empid") + " ");
-                System.out.print(rs.getString("city") + " ");
+                System.out.print(rs.getString("com.aleh.model.http.city") + " ");
                 System.out.print(rs.getString("country") + " ");
                 System.out.print(rs.getString("cityid") + "\n");
             }
